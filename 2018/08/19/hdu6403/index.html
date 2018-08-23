@@ -109,7 +109,7 @@
 
 
   <meta name="description" content="DescriptionAlice and Bob are playing a card game. In this card game, a number is written on each face of the playing card. The rule of the game is described as follows:  Alice arranges the cards in a">
-<meta name="keywords" content="HDU,2018多校,思维,图论">
+<meta name="keywords" content="思维,HDU,2018多校,图论">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HDU6403: Card Game 题解">
 <meta property="og:url" content="http://yoursite.com/2018/08/19/hdu6403/index.html">
@@ -466,6 +466,14 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
 
           
 
@@ -553,11 +561,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/思维/" rel="tag"># 思维</a>
+          
             <a href="/tags/HDU/" rel="tag"># HDU</a>
           
             <a href="/tags/2018多校/" rel="tag"># 2018多校</a>
-          
-            <a href="/tags/思维/" rel="tag"># 思维</a>
           
             <a href="/tags/图论/" rel="tag"># 图论</a>
           
@@ -609,7 +617,8 @@
   
     <div class="comments" id="comments">
       
-        <div id="gitment-container"></div>
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
       
     </div>
 
@@ -821,6 +830,24 @@
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
 
 
 
@@ -968,7 +995,11 @@
       }
 
       
-      renderGitment();
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
       
       </script>
     
