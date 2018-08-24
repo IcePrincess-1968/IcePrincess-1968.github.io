@@ -109,14 +109,14 @@
 
 
   <meta name="description" content="DescriptionIn computer science, a character is a letter, a digit, a punctuation mark or some other similar symbol. Since computers can only process numbers, number codes are used to represent characte">
-<meta name="keywords" content="HDU,2018多校,数学,容斥">
+<meta name="keywords" content="HDU,2018多校,数学,容斥原理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HDU6397: Character Encoding 题解">
 <meta property="og:url" content="http://yoursite.com/blog/hdu6397/index.html">
 <meta property="og:site_name" content="IcePrincess_1968">
 <meta property="og:description" content="DescriptionIn computer science, a character is a letter, a digit, a punctuation mark or some other similar symbol. Since computers can only process numbers, number codes are used to represent characte">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-19T15:38:44.309Z">
+<meta property="og:updated_time" content="2018-08-24T15:46:36.786Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HDU6397: Character Encoding 题解">
 <meta name="twitter:description" content="DescriptionIn computer science, a character is a letter, a digit, a punctuation mark or some other similar symbol. Since computers can only process numbers, number codes are used to represent characte">
@@ -417,7 +417,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-08-19 23:38:44" itemprop="dateModified" datetime="2018-08-19T23:38:44+08:00">2018-08-19</time>
+                <time title="修改时间：2018-08-24 23:46:36" itemprop="dateModified" datetime="2018-08-24T23:46:36+08:00">2018-08-24</time>
               
             
           </span>
@@ -448,7 +448,7 @@
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数学/数学-容斥/" itemprop="url" rel="index"><span itemprop="name">数学-容斥</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数学/容斥原理/" itemprop="url" rel="index"><span itemprop="name">容斥原理</span></a></span>
 
                 
                 
@@ -508,15 +508,8 @@
 <p>Each test case includes a line of three integers n,m,k (1≤n,m≤$10^5$,0≤k≤$10^5$), denoting the size of the alphabet of the encoding system, the length of the word, and the required sum of the encoded numbers of all characters, respectively.</p>
 <p>It is guaranteed that the sum of n, the sum of m and the sum of k don’t exceed $5×10^6$, respectively.</p>
 <h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>For each test case, display the answer modulo 998244353 in a single line.</p>
-<h2 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>4</p>
-<p>2 3 3</p>
-<p>2 3 4</p>
-<p>3 3 3</p>
-<p>128 3 340</p>
-<h2 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>1</p>
-<p>0</p>
-<p>7</p>
-<p>903</p>
+<h2 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>4<br>2 3 3<br>2 3 4<br>3 3 3<br>128 3 340</p>
+<h2 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>1<br>0<br>7<br>903</p>
 <h2 id="Source"><a href="#Source" class="headerlink" title="Source"></a>Source</h2><p>2018 Multi-University Training Contest 8</p>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>这题我刚开始直接无脑上了多项式快速幂，然后就T飞了，于是被戴大爷教做人……真的是知识越多越反动</p>
 <p>我们考虑如果没有每个数在0~n-1这个条件的话，那就是一个简单的盒子可空的隔板法问题，现在加上这个限制，我们考虑容斥，那么最后的方案可以写成这样</p>
@@ -549,7 +542,7 @@
           
             <a href="/tags/数学/" rel="tag"># 数学</a>
           
-            <a href="/tags/容斥/" rel="tag"># 容斥</a>
+            <a href="/tags/容斥原理/" rel="tag"># 容斥原理</a>
           
         </div>
       
@@ -652,7 +645,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -689,7 +682,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -728,7 +729,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
