@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[HDU6428: Calculate 题解]]></title>
+    <url>%2Fblog%2Fhdu6428%2F</url>
+    <content type="text"><![CDATA[DescriptionGiven A, B, C, Calculate $$ \sum_{i=1}^A\sum_{j=1}^B\sum_{k=1}^C\phi (gcd(i,j^2,k^3)) (mod 2^{30}) $$ Where $\phi (n)$ denotes the number of positive integers ≤ n that are relatively prime to n. InputThe first line of the input contains an integer T , denoting the number of test cases. In each test case, there are three integers A, B, C in one line, as described above. 1 ≤ T ≤ 10, 0 &lt; A, B, C ≤ 10^7 OutputFor each test case, output one line contains a single integer, denoting the answer modulo 2^30. Sample Input496 93 95970 906 89392460 95043 542459760979 8053227 7156842 Sample Output111453628070648388873924623507672 Source2018 Multi-University Training Contest 10 Solution考虑莫比乌斯反演 \begin{split}ans &amp;= \sum_{i=1}^A\sum_{j=1}^B\sum_{k=1}^C\phi (gcd(i,j^2,k^3))\ &amp;= \sum_{d=1}^A\phi (d)\sum_{i=1}^A\sum_{j=1}^B\sum_{k=1}^C[gcd(i,j^2,k^3)=d]\end{split} 令$f(n)=\sum_{i=1}^A\sum_{j=1}^B\sum_{k=1}^C[gcd(i,j^2,k^3)=n]$ 令$F(n)=\sum_{n\mid d}f(d)$ $gcd(i,j^2,k^3)$是$n$的倍数等价于$i$,$j^2$,$k^3$都是$n$的倍数，所以 $$F(n)=\sum_{i=1}^A\sum_{j=1}^B\sum_{k=1}^C\sum_{d\mid i,d\mid j^2,d\mid k^3} 1$$ 考虑$x\mid y^k$的充要条件，设$x=\Pi_ip_i^{a_i}$,则应满足$\Pi_ip_i^{\left \lceil \frac{a_i}{k}\right \rceil} \mid y$ 令$f_k(x)=\Pi_ip_i^{\left \lceil \frac{a_i}{k}\right \rceil}$,则 $$F(n)=\left \lfloor \frac{A}{f_1(n)}\right \rfloor \left\lfloor \frac{B}{f_2(n)}\right\rfloor \left\lfloor \frac{C}{f_3(n)} \right\rfloor $$ 根据莫比乌斯反演 $$f(n)=\sum_{n\mid d}F(d)\mu (\frac{d}{n})=\sum_{n\mid d}\left \lfloor \frac{A}{f_1(d)}\right \rfloor \left\lfloor \frac{B}{f_2(d)}\right\rfloor \left\lfloor \frac{C}{f_3(d)} \right\rfloor \mu (\frac{d}{n})$$ 将此式带回$ans$式,有 $$ans=\sum_{d=1}^A\phi (d)f(d)=\sum_{d=1}^A\sum_{d\mid t}\left \lfloor \frac{A}{f_1(t)}\right \rfloor \left\lfloor \frac{B}{f_2(t)}\right\rfloor \left\lfloor \frac{C}{f_3(t)} \right\rfloor \mu (\frac{t}{d})$$ 发现$\mu$和$\phi$很像卷积的关系，所以转而枚举$t$,我们有 \begin{split}ans &amp;=\sum_{t=1}^A\left \lfloor \frac{A}{f_1(t)}\right \rfloor \left\lfloor \frac{B}{f_2(t)}\right\rfloor \left\lfloor \frac{C}{f_3(t)} \right\rfloor \sum_{d\mid t}\phi (d)\mu (\frac{t}{d})&amp;=\sum_{t=1}^A(\phi \ast \mu)(t)\left \lfloor \frac{A}{f_1(t)}\right \rfloor \left\lfloor \frac{B}{f_2(t)}\right\rfloor \left\lfloor \frac{C}{f_3(t)} \right\rfloor\end{split} 现在只要线性筛出$f_k(n)$和$(\phi \ast \mu)(n)$,$f_k(n)$是积性函数比较显然,对于$(\phi \ast \mu)(n)$是积性函数，下面给出一个简短的证明:证明：考虑$(\phi \ast \mu)(a)和(\phi \ast \mu)(b)$,其中$a$,$b$互质&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $(\phi \ast \mu)(a)$可以写成$\sum \phi(x)\mu(y)[xy=a]$的形式，同理$(\phi \ast \mu)(b)$可以写成$\sum \phi(X)\mu(Y)[XY=b]$的形式&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 考虑$(\phi \ast \mu)(a)$和$(\phi \ast \mu)(b)$相乘，拆开括号后，每一项应该都是$\phi(x)\mu(y)\phi(X)\mu(Y)的形式$&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 因为$(a,b)=1$,所以$(x,X)=1,(y,Y)=1$,因为$\phi$和$\mu$都是积性函数，所以上式可以写成$\phi(xX)\mu(yY)$&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 注意到$xXyY=ab$,因为$xy$遍历了$a$的所有拆分,$XY$遍历了$b$的所有拆分，所以$xX$和$yY$必然也遍历了$ab$的所有拆分，又因为$(a,b)=1$,所以所有的$xX$必然互不相同,同时所有的$yY$也互不相同&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 所以，当$(a,b)=1$时,$(\phi \ast \mu)(ab)=(\phi \ast \mu)(a)(\phi \ast \mu)(b)$,$(\phi \ast \mu)(n)$是积性函数&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $Q.E.D.$ $f_1(n)$不用筛，我们注意到线性筛有一个非常好的性质，每个数都是被它最小的质因数筛去的，举一个例子，如果有一个数是$2^2\cdot 3^2\cdot 5$,那筛掉它的一定是$2$,剩下的是$2\cdot 3^2\cdot 5$,而$2\cdot 3^2\cdot 5$又是被$2$筛掉的,剩下的是$3^2\cdot 5$…依次类推，我们会发现一个数的相同质因数总是会在一起，所以如果我们对每一个数记录一个$cnt$表示筛掉它的质数现在有几个，在$i%prime[j]==0$的环节$cnt$累加,否则$cnt$置为$1$,然后判断一下$cnt%k$是否为1就能维护$f_k(n)$,具体细节可以看看代码 对于$(\phi \ast \mu)(n)$,首先当n是质数的时候,$(\phi \ast \mu)(n)=\phi (n)\mu (1)+\phi(1) \mu(n)=n-2$,进而当$n=p^k$,其中$p$是质数时,$(\phi \ast \mu)(n)=(\phi \ast \mu)(p^k)=\phi(p^k)\mu(1)+\phi(p^{k-1})\mu(p)+\phi(p^{k-2})\mu(p^2)+…+\phi(p)\mu(p^{k-1})+\phi(1)\mu(p^k)$, 根据莫比乌斯函数的定义,后面的$p$的次数大于等于二的项都是0,所以$(\phi \ast \mu)(n)=\phi(p^k)\mu(1)+\phi(p^{k-1})\mu(p)=(p^k-p^{k-1})\cdot 1+(p^{k-1}-p^{k-2})\cdot (-1)=p^k-2\cdot p^{k-1}+p^{k-2}$根据这个就足够进行线性筛了 Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131#include &lt;bits/stdc++.h&gt;using namespace std;#define LL long long#define LB long double#define ull unsigned long long#define uint unsigned int#define x first#define y second#define pb push_back#define pf push_front#define mp make_pair#define Pair pair&lt;int,int&gt;#define pLL pair&lt;LL,LL&gt;#define pii pair&lt;double,double&gt;const int INF=2e9;const LL LINF=2e16;const int magic=348;const int MOD=998244353;const double eps=1e-10;const double pi=acos(-1);struct fastio&#123; static const int S=1e7; char rbuf[S+48],wbuf[S+48];int rpos,wpos,len; fastio() &#123;rpos=len=wpos=0;&#125; inline char Getchar() &#123; if (rpos==len) rpos=0,len=fread(rbuf,1,S,stdin); if (!len) return EOF; return rbuf[rpos++]; &#125; template &lt;class T&gt; inline void Get(T &amp;x) &#123; char ch;bool f;T res; while (!isdigit(ch=Getchar()) &amp;&amp; ch!='-') &#123;&#125; if (ch=='-') f=false,res=0; else f=true,res=ch-'0'; while (isdigit(ch=Getchar())) res=res*10+ch-'0'; x=(f?res:-res); &#125; inline void getstring(char *s) &#123; char ch; while ((ch=Getchar())&lt;=32) &#123;&#125; for (;ch&gt;32;ch=Getchar()) *s++=ch; *s='\0'; &#125; inline void flush() &#123;fwrite(wbuf,1,wpos,stdout);fflush(stdout);wpos=0;&#125; inline void Writechar(char ch) &#123; if (wpos==S) flush(); wbuf[wpos++]=ch; &#125; template &lt;class T&gt; inline void Print(T x,char ch) &#123; char s[20];int pt=0; if (x==0) s[++pt]='0'; else &#123; if (x&lt;0) Writechar('-'),x=-x; while (x) s[++pt]='0'+x%10,x/=10; &#125; while (pt) Writechar(s[pt--]); Writechar(ch); &#125; inline void printstring(char *s) &#123; int pt=1; while (s[pt]!='\0') Writechar(s[pt++]); &#125;&#125;io;const int MAXN=1e7;bool isprime[MAXN+48];int prime[MAXN+48],tot;int phi[MAXN+48],mu[MAXN+48],mup[MAXN+48],f2[MAXN+48],f3[MAXN+48];int cnt[MAXN+48],pw[MAXN+48];inline void init()&#123; memset(isprime,true,sizeof(isprime)); phi[1]=mu[1]=mup[1]=f2[1]=f3[1]=1; for (register int i=2;i&lt;=MAXN;i++) &#123; if (isprime[i]) &#123; prime[++tot]=i; phi[i]=i-1;mu[i]=-1;mup[i]=i-2; f2[i]=f3[i]=i;cnt[i]=1;pw[i]=i; &#125; for (register int j=1;j&lt;=tot &amp;&amp; 1ll*i*prime[j]&lt;=MAXN;j++) &#123; isprime[i*prime[j]]=false; if (i%prime[j]!=0) &#123; phi[i*prime[j]]=phi[i]*(prime[j]-1); mu[i*prime[j]]=-mu[i]; mup[i*prime[j]]=mup[i]*mup[prime[j]]; f2[i*prime[j]]=f2[i]*prime[j]; f3[i*prime[j]]=f3[i]*prime[j]; cnt[i*prime[j]]=1;pw[i*prime[j]]=prime[j]; &#125; else &#123; phi[i*prime[j]]=phi[i]*prime[j]; mu[i*prime[j]]=0;cnt[i*prime[j]]=cnt[i]+1;pw[i*prime[j]]=pw[i]*prime[j]; mup[i*prime[j]]=mup[i/pw[i]]*(pw[i*prime[j]]-2*pw[i*prime[j]]/prime[j]+pw[i*prime[j]]/prime[j]/prime[j]); f2[i*prime[j]]=f2[i]*((cnt[i*prime[j]]%2==1)?prime[j]:1); f3[i*prime[j]]=f3[i]*((cnt[i*prime[j]]%3==1)?prime[j]:1); break; &#125; &#125; &#125;&#125;uint A,B,C;int main ()&#123; int ca;io.Get(ca);init(); while (ca--) &#123; io.Get(A);io.Get(B);io.Get(C); uint ans=0; for (register int i=1;i&lt;=A;i++) ans+=(A/i)*(B/f2[i])*(C/f3[i])*mup[i]; io.Print(ans&amp;((1&lt;&lt;30)-1),'\n'); &#125; io.flush();return 0;&#125;]]></content>
+      <categories>
+        <category>OI</category>
+        <category>数学</category>
+        <category>莫比乌斯反演</category>
+      </categories>
+      <tags>
+        <tag>HDU</tag>
+        <tag>2018多校</tag>
+        <tag>数学</tag>
+        <tag>莫比乌斯反演</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Pollard_Rho分解质因数]]></title>
+    <url>%2Fblog%2Fpollard_rho%2F</url>
+    <content type="text"><![CDATA[Pollard_Rho的核心思想大概是两个: 生日攻击理论 假设当前要分解的数$p=a*b$，$a$和$b$很稀有，但是$a$和$b$的倍数却有很多，所以只要找到一个数$c$，使得$gcd(c,p)&gt;1$即可 所以算法大概是这样： 在[2,n-1]之间随机一些数$x_1,x_2…x_k$,$k$大概是$n^{\frac{1}{4}}$级别 判断是否存在$gcd(\mid x_i-x_j\mid ,p)&gt;1$ 但把这些x全部预处理出来的方法太傻了，事实上我们可以先造两个数出来，然后不断地生成伪随机数，pollard告诉我们,$x_{i+1}=(x_i^2+a)%N$是一个非常好的随机函数，这里的$a$是随机的，通常随机一个不会出锅如果真的出锅了就再随机一个 不过这个随机算法有一点问题：这样随机下去之后，$x_i$会重复。如果把所有的$x_i$都存下来然后哈希显然又显得烦了一些，有两种判圈算法可以帮我们在发现入圈之后跳出去 Floyd判圈法：它的核心思想是这样的：假设乌龟和兔子在某种形状的跑道上跑，兔子的速度比乌龟快，那么除了在起点的时刻，如果兔子遇到了乌龟，说明跑道上存在环，套用在pollard_rho上，就是$x_{i+1}=(x_i^2+a)%N$这个函数，准备$x$和$y$两个变量，一个每次做一下，一个每次做两下，模拟乌龟和兔子 Brent判圈法：还是用乌龟和兔子举例子，乌龟不动，兔子每跑一步，就判断一下是否和兔子相遇，一旦兔子跑的步数是2的次幂，就把乌龟移到兔子的位置。这个算法比Floyd要好一些]]></content>
+      <categories>
+        <category>OI</category>
+        <category>数学</category>
+        <category>Pollard_Rho分解质因数</category>
+      </categories>
+      <tags>
+        <tag>数学</tag>
+        <tag>讲稿</tag>
+        <tag>Pollard_Rho分解质因数</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Miller_Rabin强伪素性测试]]></title>
     <url>%2Fblog%2Fmiller_rabin%2F</url>
     <content type="text"><![CDATA[Miller_Rabin强伪素性测试主要基于下面两个定理 费尔马小定理：若$gcd(a,p)=1$,则$a^{p-1}\equiv 1(mod$ &nbsp; $p)$ 二次探测定理：若p是质数且$a^2\equiv 1(mod$ &nbsp; $p)$,则$a\equiv \pm 1(mod$ &nbsp; $p)$ (对于2给出一个简单的证明: 若$a^2\equiv 1(mod$ &nbsp; $p)$,那么$p\mid a^2-1$,即$p\mid (a+1)(a-1)$,这里我们不讨论$p=2$的情况，因为p是质数，所以p不可能同时整除$a-1$和$a+1$,所以要么$p\mid a-1$,要么$p\mid a+1$,即$a\equiv \pm 1(mod$ &nbsp; $p)$) 也就是说，一旦找到任何一个$a$不满足上述条件，那么$p$一定不是质数 为什么定理1不够用还要定理2呢，因为有一种数叫Carmichael数，它们都是合数，且均满足对于$\forall a$,有$a^{p-1}\equiv 1(mod$ &nbsp; $p)$,这种数在1e8范围内只有255个，但是也足够多了 所以我们考虑下面的方法： 对于$p-1$,把它写成$p-1=2^kt$的形式,其中$p\equiv 1(mod$ &nbsp; $2)$ 随机一个小于p的数a, 快速幂算出$a^t$ 当前数是$a^t$,自乘的结果是$a^{2t}$,再自乘的结果是$a^{2^2t}$,依次类推，自乘k次后这个数就会变成$a^{2^kt}$,即$a^{p-1}$ 在3的过程中，参考上面的两条定理，我们可以得到： 如果最后这个数不等于1，那么p不是质数 如果在某一个时刻，这个数在模$p$意义下等于1,而上一时刻不等于$\pm 1$，那么$p$不是质数 我们称2和3为一次测试，一个数$p$,不是质数且通过一次测试的概率约为25%,所以多随机几次失败的概率就微乎其微]]></content>
@@ -31,18 +62,19 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Pollard_Rho分解质因数]]></title>
-    <url>%2Fblog%2Fpollard_rho%2F</url>
-    <content type="text"><![CDATA[Pollard_Rho的核心思想大概是两个: 生日攻击理论 假设当前要分解的数$p=a*b$，$a$和$b$很稀有，但是$a$和$b$的倍数却有很多，所以只要找到一个数$c$，使得$gcd(c,p)&gt;1$即可 所以算法大概是这样： 在[2,n-1]之间随机一些数$x_1,x_2…x_k$,$k$大概是$n^{\frac{1}{4}}$级别 判断是否存在$gcd(\mid x_i-x_j\mid ,p)&gt;1$ 但把这些x全部预处理出来的方法太傻了，事实上我们可以先造两个数出来，然后不断地生成伪随机数，pollard告诉我们,$x_{i+1}=(x_i^2+a)%N$是一个非常好的随机函数，这里的$a$是随机的，通常随机一个不会出锅如果真的出锅了就再随机一个 不过这个随机算法有一点问题：这样随机下去之后，$x_i$会重复。如果把所有的$x_i$都存下来然后哈希显然又显得烦了一些，有两种判圈算法可以帮我们在发现入圈之后跳出去 Floyd判圈法：它的核心思想是这样的：假设乌龟和兔子在某种形状的跑道上跑，兔子的速度比乌龟快，那么除了在起点的时刻，如果兔子遇到了乌龟，说明跑道上存在环，套用在pollard_rho上，就是$x_{i+1}=(x_i^2+a)%N$这个函数，准备$x$和$y$两个变量，一个每次做一下，一个每次做两下，模拟乌龟和兔子 Brent判圈法：还是用乌龟和兔子举例子，乌龟不动，兔子每跑一步，就判断一下是否和兔子相遇，一旦兔子跑的步数是2的次幂，就把乌龟移到兔子的位置。这个算法比Floyd要好一些]]></content>
+    <title><![CDATA[HDU6434: Count 题解]]></title>
+    <url>%2Fblog%2Fhdu6434%2F</url>
+    <content type="text"><![CDATA[DescriptionMultiple query, for each n, you need to get $$\sum_{i=1}^n\sum_{j=1}^{i-1}[gcd(i+j,i-j)=1]$$ InputOn the first line, there is a positive integer T, which describe the number of queries. Next there are T lines, each line give a positive integer n, as mentioned above. T&lt;=1e5, n&lt;=2e7 OutputYour output should include T lines, for each line, output the answer for the corresponding n. Sample Input4978438233666 Sample Output194041389511106589963 Source2018 Multi-University Training Contest 10 Solution我刚开始的思路是：转而考虑枚举i+j和j，但发现j的范围与i+j有关，最后不好算 我们考虑枚举一个a,i+j=2i-a,i-j=a,可以看出这样的a和j是一一对应的，且a+j=n 所以我们转而求 $$\sum_{i=1}^n\sum_{a=1}^{n-1}[gcd(2i-a,a)=1]$$ 根据辗转相减求gcd的原理，我们有$gcd(a+b,b)=gcd(a,b)$，所以$gcd(2i-a,a)=gcd(2i,a)$ 于是我们转而求 $$\sum_{i=1}^n\sum_{j=1}^{n-1}[gcd(2i,a)=1]$$ 首先a肯定是奇数，然后这时可以把2扔掉，只判断i和a是否互质 如果i是偶数，那么小于i的与i互质的数必然全都是奇数，都可以作为a，所以这时答案是$phi(i)$ 如果i是奇数，考虑任意一个小于i且与i互质的数p，则i-p也和i互质，而且p和i-p必然一奇一偶，所以所有小于i且与i互质的数中，奇数偶数各占一半，所以这时答案是$\frac{phi(i)}{2}$ 所以只要线性筛一波欧拉函数，然后前缀和一下就好了，时间复杂度O(n+T) Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112#include &lt;bits/stdc++.h&gt;using namespace std;#define LL long long#define LB long double#define ull unsigned long long#define x first#define y second#define pb push_back#define pf push_front#define mp make_pair#define Pair pair&lt;int,int&gt;#define pLL pair&lt;LL,LL&gt;#define pii pair&lt;double,double&gt;const int INF=2e9;const LL LINF=2e16;const int magic=348;const int MOD=998244353;const double eps=1e-10;const double pi=acos(-1);struct fastio&#123; static const int S=1e7; char rbuf[S+48],wbuf[S+48];int rpos,wpos,len; fastio() &#123;rpos=len=wpos=0;&#125; inline char Getchar() &#123; if (rpos==len) rpos=0,len=fread(rbuf,1,S,stdin); if (!len) return EOF; return rbuf[rpos++]; &#125; template &lt;class T&gt; inline void Get(T &amp;x) &#123; char ch;bool f;T res; while (!isdigit(ch=Getchar()) &amp;&amp; ch!='-') &#123;&#125; if (ch=='-') f=false,res=0; else f=true,res=ch-'0'; while (isdigit(ch=Getchar())) res=res*10+ch-'0'; x=(f?res:-res); &#125; inline void getstring(char *s) &#123; char ch; while ((ch=Getchar())&lt;=32) &#123;&#125; for (;ch&gt;32;ch=Getchar()) *s++=ch; *s='\0'; &#125; inline void flush() &#123;fwrite(wbuf,1,wpos,stdout);fflush(stdout);wpos=0;&#125; inline void Writechar(char ch) &#123; if (wpos==S) flush(); wbuf[wpos++]=ch; &#125; template &lt;class T&gt; inline void Print(T x,char ch) &#123; char s[20];int pt=0; if (x==0) s[++pt]='0'; else &#123; if (x&lt;0) Writechar('-'),x=-x; while (x) s[++pt]='0'+x%10,x/=10; &#125; while (pt) Writechar(s[pt--]); Writechar(ch); &#125; inline void printstring(char *s) &#123; int pt=1; while (s[pt]!='\0') Writechar(s[pt++]); &#125;&#125;io;const int MAXN=2e7;int phi[MAXN+48],prime[MAXN+48],tot;bool isprime[MAXN+48];inline void init_phi()&#123; memset(isprime,true,sizeof(isprime)); phi[1]=1; for (register int i=2;i&lt;=MAXN;i++) &#123; if (isprime[i]) prime[++tot]=i,phi[i]=i-1; for (register int j=1;j&lt;=tot &amp;&amp; 1ll*i*prime[j]&lt;=MAXN;j++) &#123; isprime[i*prime[j]]=false; if (i%prime[j]) phi[i*prime[j]]=phi[i]*(prime[j]-1); else phi[i*prime[j]]=phi[i]*prime[j]; if (i%prime[j]==0) break; &#125; &#125;&#125;LL ans[MAXN+48];inline void init_ans()&#123; ans[1]=0; for (register int i=2;i&lt;=MAXN;i++) if (i&amp;1) ans[i]=ans[i-1]+phi[i]/2; else ans[i]=ans[i-1]+phi[i];&#125;int main ()&#123; int ca,i,n;io.Get(ca); init_phi();init_ans(); while (ca--) &#123; io.Get(n); io.Print(ans[n],'\n'); &#125; io.flush();return 0;&#125;]]></content>
       <categories>
         <category>OI</category>
         <category>数学</category>
-        <category>Pollard_Rho分解质因数</category>
+        <category>欧拉函数</category>
       </categories>
       <tags>
+        <tag>HDU</tag>
+        <tag>2018多校</tag>
         <tag>数学</tag>
-        <tag>讲稿</tag>
-        <tag>Pollard_Rho分解质因数</tag>
+        <tag>欧拉函数</tag>
       </tags>
   </entry>
   <entry>
@@ -58,22 +90,6 @@
         <tag>HDU</tag>
         <tag>2018多校</tag>
         <tag>容斥原理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[HDU6434: Count 题解]]></title>
-    <url>%2Fblog%2Fhdu6434%2F</url>
-    <content type="text"><![CDATA[DescriptionMultiple query, for each n, you need to get $$\sum_{i=1}^n\sum_{j=1}^{i-1}[gcd(i+j,i-j)=1]$$ InputOn the first line, there is a positive integer T, which describe the number of queries. Next there are T lines, each line give a positive integer n, as mentioned above. T&lt;=1e5, n&lt;=2e7 OutputYour output should include T lines, for each line, output the answer for the corresponding n. Sample Input4978438233666 Sample Output194041389511106589963 Source2018 Multi-University Training Contest 10 Solution我刚开始的思路是：转而考虑枚举i+j和j，但发现j的范围与i+j有关，最后不好算 我们考虑枚举一个a,i+j=2i-a,i-j=a,可以看出这样的a和j是一一对应的，且a+j=n 所以我们转而求 $$\sum_{i=1}^n\sum_{a=1}^{n-1}[gcd(2i-a,a)=1]$$ 根据辗转相减求gcd的原理，我们有$gcd(a+b,b)=gcd(a,b)$，所以$gcd(2i-a,a)=gcd(2i,a)$ 于是我们转而求 $$\sum_{i=1}^n\sum_{j=1}^{n-1}[gcd(2i,a)=1]$$ 首先a肯定是奇数，然后这时可以把2扔掉，只判断i和a是否互质 如果i是偶数，那么小于i的与i互质的数必然全都是奇数，都可以作为a，所以这时答案是$phi(i)$ 如果i是奇数，考虑任意一个小于i且与i互质的数p，则i-p也和i互质，而且p和i-p必然一奇一偶，所以所有小于i且与i互质的数中，奇数偶数各占一半，所以这时答案是$\frac{phi(i)}{2}$ 所以只要线性筛一波欧拉函数，然后前缀和一下就好了，时间复杂度O(n+T) Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112#include &lt;bits/stdc++.h&gt;using namespace std;#define LL long long#define LB long double#define ull unsigned long long#define x first#define y second#define pb push_back#define pf push_front#define mp make_pair#define Pair pair&lt;int,int&gt;#define pLL pair&lt;LL,LL&gt;#define pii pair&lt;double,double&gt;const int INF=2e9;const LL LINF=2e16;const int magic=348;const int MOD=998244353;const double eps=1e-10;const double pi=acos(-1);struct fastio&#123; static const int S=1e7; char rbuf[S+48],wbuf[S+48];int rpos,wpos,len; fastio() &#123;rpos=len=wpos=0;&#125; inline char Getchar() &#123; if (rpos==len) rpos=0,len=fread(rbuf,1,S,stdin); if (!len) return EOF; return rbuf[rpos++]; &#125; template &lt;class T&gt; inline void Get(T &amp;x) &#123; char ch;bool f;T res; while (!isdigit(ch=Getchar()) &amp;&amp; ch!='-') &#123;&#125; if (ch=='-') f=false,res=0; else f=true,res=ch-'0'; while (isdigit(ch=Getchar())) res=res*10+ch-'0'; x=(f?res:-res); &#125; inline void getstring(char *s) &#123; char ch; while ((ch=Getchar())&lt;=32) &#123;&#125; for (;ch&gt;32;ch=Getchar()) *s++=ch; *s='\0'; &#125; inline void flush() &#123;fwrite(wbuf,1,wpos,stdout);fflush(stdout);wpos=0;&#125; inline void Writechar(char ch) &#123; if (wpos==S) flush(); wbuf[wpos++]=ch; &#125; template &lt;class T&gt; inline void Print(T x,char ch) &#123; char s[20];int pt=0; if (x==0) s[++pt]='0'; else &#123; if (x&lt;0) Writechar('-'),x=-x; while (x) s[++pt]='0'+x%10,x/=10; &#125; while (pt) Writechar(s[pt--]); Writechar(ch); &#125; inline void printstring(char *s) &#123; int pt=1; while (s[pt]!='\0') Writechar(s[pt++]); &#125;&#125;io;const int MAXN=2e7;int phi[MAXN+48],prime[MAXN+48],tot;bool isprime[MAXN+48];inline void init_phi()&#123; memset(isprime,true,sizeof(isprime)); phi[1]=1; for (register int i=2;i&lt;=MAXN;i++) &#123; if (isprime[i]) prime[++tot]=i,phi[i]=i-1; for (register int j=1;j&lt;=tot &amp;&amp; 1ll*i*prime[j]&lt;=MAXN;j++) &#123; isprime[i*prime[j]]=false; if (i%prime[j]) phi[i*prime[j]]=phi[i]*(prime[j]-1); else phi[i*prime[j]]=phi[i]*prime[j]; if (i%prime[j]==0) break; &#125; &#125;&#125;LL ans[MAXN+48];inline void init_ans()&#123; ans[1]=0; for (register int i=2;i&lt;=MAXN;i++) if (i&amp;1) ans[i]=ans[i-1]+phi[i]/2; else ans[i]=ans[i-1]+phi[i];&#125;int main ()&#123; int ca,i,n;io.Get(ca); init_phi();init_ans(); while (ca--) &#123; io.Get(n); io.Print(ans[n],'\n'); &#125; io.flush();return 0;&#125;]]></content>
-      <categories>
-        <category>OI</category>
-        <category>数学</category>
-        <category>欧拉函数</category>
-      </categories>
-      <tags>
-        <tag>HDU</tag>
-        <tag>2018多校</tag>
-        <tag>数学</tag>
-        <tag>欧拉函数</tag>
       </tags>
   </entry>
   <entry>
@@ -151,9 +167,9 @@
         <category>交互题</category>
       </categories>
       <tags>
+        <tag>思维</tag>
         <tag>Codeforces</tag>
         <tag>交互题</tag>
-        <tag>思维</tag>
       </tags>
   </entry>
 </search>
