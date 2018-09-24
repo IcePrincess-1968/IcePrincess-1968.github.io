@@ -41,6 +41,7 @@ Method signature: int pileSize(int A, int B, int K)
 - K will be between 1 and 2,000,000,000, inclusive.
 
 ## Examples
+
 0) 	
      	
 
@@ -125,7 +126,7 @@ This problem statement is the exclusive and proprietary property of TopCoder, In
 所以算出这个，返回$min(x,n-x)$即可
 
 ## Code
-```
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 

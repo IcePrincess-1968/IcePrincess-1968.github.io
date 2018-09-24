@@ -35,20 +35,20 @@ After processing all the queries, find the total weight of the edges contained i
 
 ## Constraints
 
-> 2≦N≦200,000
-> 1≦Q≦200,000
-> 0≦Ai,Bi≦N−1
-> 1≦Ci≦109
+    2 ≦ N ≦ 200,000
+    1 ≦ Q ≦ 200,000
+    0 ≦ Ai,Bi ≦ N−1
+    1 ≦ Ci ≦ 1e9
 
 ## Input
 
 The input is given from Standard Input in the following format:
 
->N Q
->A1 B1 C1
->A2 B2 C2
->:
->AQ BQ CQ
+    N Q
+    A1 B1 C1
+    A2 B2 C2
+    :
+    AQ BQ CQ
 
 ## Output
 
@@ -56,12 +56,12 @@ Print the total weight of the edges contained in a minimum spanning tree of the 
 
 ## Sample Input 1
 
->7 1
->5 2 1
+    7 1
+    5 2 1
 
 ## Sample Output 1
 
->21
+    21
 
 The figure below shows the minimum spanning tree of the graph:
 
@@ -71,25 +71,25 @@ Note that there can be multiple edges connecting the same pair of vertices.
 
 ## Sample Input 2
 
->2 1
->0 0 1000000000
+    2 1
+    0 0 1000000000
 
 ## Sample Output 2
 
->1000000001
+    1000000001
 
 Also note that there can be self-loops.
 
 ## Sample Input 3
 
->5 3
->0 1 10
->0 2 10
->0 4 10
+    5 3
+    0 1 10
+    0 2 10
+    0 4 10
 
 ## Sample Output 3
 
->42
+    42
 
 ## Solution
 
@@ -108,7 +108,7 @@ Ai和Bi的横跨边一共只有1e5条，可以不管。对于剩下的链,我们
 因为一共只会向图中连n-1条边，所以直接用堆维护这个过程，复杂度正确
 
 ## Code
-```
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
