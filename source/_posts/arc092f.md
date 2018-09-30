@@ -5,7 +5,7 @@ title: "AtCoder Regular Contest 092F: Two Faced Edges 题解"
 categories:
 - [OI, 图论]
 - [OI, 思维]
-tags: [AtCoder, 思维，图论]
+tags: [AtCoder, 思维, 图论]
 mathjax: true
 ---
 
