@@ -11,7 +11,8 @@
       </categories>
       <tags>
         <tag>AtCoder</tag>
-        <tag>思维，图论</tag>
+        <tag>思维</tag>
+        <tag>图论</tag>
       </tags>
   </entry>
   <entry>
@@ -84,9 +85,9 @@
         <category>思维</category>
       </categories>
       <tags>
+        <tag>思维</tag>
         <tag>dp</tag>
         <tag>Codeforces</tag>
-        <tag>思维</tag>
       </tags>
   </entry>
   <entry>
@@ -188,21 +189,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Miller_Rabin强伪素性测试]]></title>
-    <url>%2Fblog%2Fmiller_rabin%2F</url>
-    <content type="text"><![CDATA[Miller_Rabin强伪素性测试主要基于下面两个定理 费尔马小定理：若$gcd(a,p)=1$,则$a^{p-1}\equiv 1(mod$ &nbsp; $p)$ 二次探测定理：若p是质数且$a^2\equiv 1(mod$ &nbsp; $p)$,则$a\equiv \pm 1(mod$ &nbsp; $p)$ (对于2给出一个简单的证明: 若$a^2\equiv 1(mod$ &nbsp; $p)$,那么$p\mid a^2-1$,即$p\mid (a+1)(a-1)$,这里我们不讨论$p=2$的情况，因为p是质数，所以p不可能同时整除$a-1$和$a+1$,所以要么$p\mid a-1$,要么$p\mid a+1$,即$a\equiv \pm 1(mod$ &nbsp; $p)$) 也就是说，一旦找到任何一个$a$不满足上述条件，那么$p$一定不是质数 为什么定理1不够用还要定理2呢，因为有一种数叫Carmichael数，它们都是合数，且均满足对于$\forall a$,有$a^{p-1}\equiv 1(mod$ &nbsp; $p)$,这种数在1e8范围内只有255个，但是也足够多了 所以我们考虑下面的方法： 对于$p-1$,把它写成$p-1=2^kt$的形式,其中$p\equiv 1(mod$ &nbsp; $2)$ 随机一个小于p的数a, 快速幂算出$a^t$ 当前数是$a^t$,自乘的结果是$a^{2t}$,再自乘的结果是$a^{2^2t}$,依次类推，自乘k次后这个数就会变成$a^{2^kt}$,即$a^{p-1}$ 在3的过程中，参考上面的两条定理，我们可以得到： 如果最后这个数不等于1，那么p不是质数 如果在某一个时刻，这个数在模$p$意义下等于1,而上一时刻不等于$\pm 1$，那么$p$不是质数 我们称2和3为一次测试，一个数$p$,不是质数且通过一次测试的概率约为25%,所以多随机几次失败的概率就微乎其微]]></content>
-      <categories>
-        <category>OI</category>
-        <category>数学</category>
-        <category>Miller_Rabin强伪素性测试</category>
-      </categories>
-      <tags>
-        <tag>数学</tag>
-        <tag>讲稿</tag>
-        <tag>Miller_Rabin强伪素性测试</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Pollard_Rho分解质因数]]></title>
     <url>%2Fblog%2Fpollard_rho%2F</url>
     <content type="text"><![CDATA[Pollard_Rho的核心思想大概是两个: 生日攻击理论 假设当前要分解的数$p=a*b$，$a$和$b$很稀有，但是$a$和$b$的倍数却有很多，所以只要找到一个数$c$，使得$gcd(c,p)&gt;1$即可 所以算法大概是这样： 在[2,n-1]之间随机一些数$x_1,x_2…x_k$,$k$大概是$n^{\frac{1}{4}}$级别 判断是否存在$gcd(\mid x_i-x_j\mid ,p)&gt;1$ 但把这些x全部预处理出来的方法太傻了，事实上我们可以先造两个数出来，然后不断地生成伪随机数，pollard告诉我们,$x_{i+1}=(x_i^2+a)%N$是一个非常好的随机函数，这里的$a$是随机的，通常随机一个不会出锅如果真的出锅了就再随机一个 不过这个随机算法有一点问题：这样随机下去之后，$x_i$会重复。如果把所有的$x_i$都存下来然后哈希显然又显得烦了一些，有两种判圈算法可以帮我们在发现入圈之后跳出去 Floyd判圈法：它的核心思想是这样的：假设乌龟和兔子在某种形状的跑道上跑，兔子的速度比乌龟快，那么除了在起点的时刻，如果兔子遇到了乌龟，说明跑道上存在环，套用在pollard_rho上，就是$x_{i+1}=(x_i^2+a)%N$这个函数，准备$x$和$y$两个变量，一个每次做一下，一个每次做两下，模拟乌龟和兔子 Brent判圈法：还是用乌龟和兔子举例子，乌龟不动，兔子每跑一步，就判断一下是否和兔子相遇，一旦兔子跑的步数是2的次幂，就把乌龟移到兔子的位置。这个算法比Floyd要好一些]]></content>
@@ -215,6 +201,21 @@
         <tag>数学</tag>
         <tag>讲稿</tag>
         <tag>Pollard_Rho分解质因数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Miller_Rabin强伪素性测试]]></title>
+    <url>%2Fblog%2Fmiller_rabin%2F</url>
+    <content type="text"><![CDATA[Miller_Rabin强伪素性测试主要基于下面两个定理 费尔马小定理：若$gcd(a,p)=1$,则$a^{p-1}\equiv 1(mod$ &nbsp; $p)$ 二次探测定理：若p是质数且$a^2\equiv 1(mod$ &nbsp; $p)$,则$a\equiv \pm 1(mod$ &nbsp; $p)$ (对于2给出一个简单的证明: 若$a^2\equiv 1(mod$ &nbsp; $p)$,那么$p\mid a^2-1$,即$p\mid (a+1)(a-1)$,这里我们不讨论$p=2$的情况，因为p是质数，所以p不可能同时整除$a-1$和$a+1$,所以要么$p\mid a-1$,要么$p\mid a+1$,即$a\equiv \pm 1(mod$ &nbsp; $p)$) 也就是说，一旦找到任何一个$a$不满足上述条件，那么$p$一定不是质数 为什么定理1不够用还要定理2呢，因为有一种数叫Carmichael数，它们都是合数，且均满足对于$\forall a$,有$a^{p-1}\equiv 1(mod$ &nbsp; $p)$,这种数在1e8范围内只有255个，但是也足够多了 所以我们考虑下面的方法： 对于$p-1$,把它写成$p-1=2^kt$的形式,其中$p\equiv 1(mod$ &nbsp; $2)$ 随机一个小于p的数a, 快速幂算出$a^t$ 当前数是$a^t$,自乘的结果是$a^{2t}$,再自乘的结果是$a^{2^2t}$,依次类推，自乘k次后这个数就会变成$a^{2^kt}$,即$a^{p-1}$ 在3的过程中，参考上面的两条定理，我们可以得到： 如果最后这个数不等于1，那么p不是质数 如果在某一个时刻，这个数在模$p$意义下等于1,而上一时刻不等于$\pm 1$，那么$p$不是质数 我们称2和3为一次测试，一个数$p$,不是质数且通过一次测试的概率约为25%,所以多随机几次失败的概率就微乎其微]]></content>
+      <categories>
+        <category>OI</category>
+        <category>数学</category>
+        <category>Miller_Rabin强伪素性测试</category>
+      </categories>
+      <tags>
+        <tag>数学</tag>
+        <tag>讲稿</tag>
+        <tag>Miller_Rabin强伪素性测试</tag>
       </tags>
   </entry>
   <entry>
@@ -289,10 +290,26 @@
         <category>思维</category>
       </categories>
       <tags>
-        <tag>图论</tag>
         <tag>思维</tag>
+        <tag>图论</tag>
         <tag>HDU</tag>
         <tag>2018多校</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[HDU6397: Character Encoding 题解]]></title>
+    <url>%2Fblog%2Fhdu6397%2F</url>
+    <content type="text"><![CDATA[DescriptionIn computer science, a character is a letter, a digit, a punctuation mark or some other similar symbol. Since computers can only process numbers, number codes are used to represent characters, which is known as character encoding. A character encoding system establishes a bijection between the elements of an alphabet of a certain size n and integers from 0 to n−1. Some well known character encoding systems include American Standard Code for Information Interchange (ASCII), which has an alphabet size 128, and the extended ASCII, which has an alphabet size 256. For example, in ASCII encoding system, the word wdy is encoded as [119, 100, 121], while jsw is encoded as [106, 115, 119]. It can be noticed that both 119+100+121=340 and 106+115+119=340, thus the sum of the encoded numbers of the two words are equal. In fact, there are in all 903 such words of length 3 in an encoding system of alphabet size 128 (in this example, ASCII). The problem is as follows: given an encoding system of alphabet size n where each character is encoded as a number between 0 and n−1 inclusive, how many different words of length m are there, such that the sum of the encoded numbers of all characters is equal to k? Since the answer may be large, you only need to output it modulo 998244353. InputThe first line of input is a single integer T (1≤T≤400), the number of test cases. Each test case includes a line of three integers n,m,k (1≤n,m≤$10^5$,0≤k≤$10^5$), denoting the size of the alphabet of the encoding system, the length of the word, and the required sum of the encoded numbers of all characters, respectively. It is guaranteed that the sum of n, the sum of m and the sum of k don’t exceed $5×10^6$, respectively. OutputFor each test case, display the answer modulo 998244353 in a single line. Sample Input42 3 32 3 43 3 3128 3 340 Sample Output107903 Source2018 Multi-University Training Contest 8 Solution这题我刚开始直接无脑上了多项式快速幂，然后就T飞了，于是被戴大爷教做人……真的是知识越多越反动 我们考虑如果没有每个数在0~n-1这个条件的话，那就是一个简单的盒子可空的隔板法问题，现在加上这个限制，我们考虑容斥，那么最后的方案可以写成这样 $$ans=\sum_{i=0}^{lim}(-1)^i*f(至少有i个数大于n-1)$$ 现在考虑$f(至少有i个数大于n-1)$怎么算，我们可以先钦定哪i个位置比n-1大，这个是$C_m^i$，然后剩下的依旧是一个简单的隔板法，于是就做完了 Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123#include &lt;bits/stdc++.h&gt;using namespace std;#define LL long long#define LB long double#define ull unsigned long long#define x first#define y second#define pb push_back#define pf push_front#define mp make_pair#define Pair pair&lt;int,int&gt;#define pLL pair&lt;LL,LL&gt;#define pii pair&lt;double,double&gt;const int INF=2e9;const LL LINF=2e16;const int magic=348;const int MOD=998244353;const double eps=1e-10;const double pi=acos(-1);struct fastio&#123; static const int S=1e7; char rbuf[S+48],wbuf[S+48];int rpos,wpos,len; fastio() &#123;rpos=len=wpos=0;&#125; inline char Getchar() &#123; if (rpos==len) rpos=0,len=fread(rbuf,1,S,stdin); if (!len) return EOF; return rbuf[rpos++]; &#125; template &lt;class T&gt; inline void Get(T &amp;x) &#123; char ch;bool f;T res; while (!isdigit(ch=Getchar()) &amp;&amp; ch!='-') &#123;&#125; if (ch=='-') f=false,res=0; else f=true,res=ch-'0'; while (isdigit(ch=Getchar())) res=res*10+ch-'0'; x=(f?res:-res); &#125; inline void getstring(char *s) &#123; char ch; while ((ch=Getchar())&lt;=32) &#123;&#125; for (;ch&gt;32;ch=Getchar()) *++s=ch; *(s+1)='\0'; &#125; inline void flush() &#123;fwrite(wbuf,1,wpos,stdout);fflush(stdout);wpos=0;&#125; inline void Writechar(char ch) &#123; if (wpos==S) flush(); wbuf[wpos++]=ch; &#125; template &lt;class T&gt; inline void Print(T x) &#123; char s[20];int pt=0; if (x==0) s[++pt]='0'; else &#123; if (x&lt;0) Writechar('-'),x=-x; while (x) s[++pt]='0'+x%10,x/=10; &#125; while (pt) Writechar(s[pt--]); Writechar('\n'); &#125; inline void printstring(char *s) &#123; int pt=1; while (s[pt]!='\0') Writechar(s[pt++]); &#125;&#125;io;const int MAXN=3e5;inline int quick_pow(int x,int y)&#123; int res=1; while (y) &#123; if (y&amp;1) res=(1ll*res*x)%MOD,y--; x=(1ll*x*x)%MOD,y&gt;&gt;=1; &#125; return res;&#125;inline int add(int x) &#123;if (x&gt;=MOD) x-=MOD;return x;&#125;inline int sub(int x) &#123;if (x&lt;0) x+=MOD;return x;&#125;int fac[MAXN+48],finv[MAXN+48];inline void init_inv()&#123; fac[0]=1; for (register int i=1;i&lt;=MAXN;i++) fac[i]=(1ll*fac[i-1]*i)%MOD; finv[MAXN]=quick_pow(fac[MAXN],MOD-2); for (register int i=MAXN-1;i&gt;=0;i--) finv[i]=(1ll*finv[i+1]*(i+1))%MOD;&#125;inline int C(int x,int y)&#123; if (x&lt;0 || y&lt;0 || x&lt;y) return 0; return ((1ll*fac[x]*finv[y])%MOD*finv[x-y])%MOD;&#125;int n,m,k;int main ()&#123; int ca;io.Get(ca); init_inv(); while (ca--) &#123; io.Get(n);io.Get(m);io.Get(k); int ans=0; for (register int i=0;i&lt;=m &amp;&amp; n*i&lt;=k;i++) &#123; int delta=(1ll*C(m,i)*C(k-n*i+m-1,m-1))%MOD; if (i&amp;1) ans=sub(ans-delta); else ans=add(ans+delta); &#125; io.Print(ans); &#125; io.flush();return 0;&#125;]]></content>
+      <categories>
+        <category>OI</category>
+        <category>数学</category>
+        <category>容斥原理</category>
+      </categories>
+      <tags>
+        <tag>HDU</tag>
+        <tag>2018多校</tag>
+        <tag>数学</tag>
+        <tag>容斥原理</tag>
       </tags>
   </entry>
   <entry>
@@ -314,22 +331,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[HDU6397: Character Encoding 题解]]></title>
-    <url>%2Fblog%2Fhdu6397%2F</url>
-    <content type="text"><![CDATA[DescriptionIn computer science, a character is a letter, a digit, a punctuation mark or some other similar symbol. Since computers can only process numbers, number codes are used to represent characters, which is known as character encoding. A character encoding system establishes a bijection between the elements of an alphabet of a certain size n and integers from 0 to n−1. Some well known character encoding systems include American Standard Code for Information Interchange (ASCII), which has an alphabet size 128, and the extended ASCII, which has an alphabet size 256. For example, in ASCII encoding system, the word wdy is encoded as [119, 100, 121], while jsw is encoded as [106, 115, 119]. It can be noticed that both 119+100+121=340 and 106+115+119=340, thus the sum of the encoded numbers of the two words are equal. In fact, there are in all 903 such words of length 3 in an encoding system of alphabet size 128 (in this example, ASCII). The problem is as follows: given an encoding system of alphabet size n where each character is encoded as a number between 0 and n−1 inclusive, how many different words of length m are there, such that the sum of the encoded numbers of all characters is equal to k? Since the answer may be large, you only need to output it modulo 998244353. InputThe first line of input is a single integer T (1≤T≤400), the number of test cases. Each test case includes a line of three integers n,m,k (1≤n,m≤$10^5$,0≤k≤$10^5$), denoting the size of the alphabet of the encoding system, the length of the word, and the required sum of the encoded numbers of all characters, respectively. It is guaranteed that the sum of n, the sum of m and the sum of k don’t exceed $5×10^6$, respectively. OutputFor each test case, display the answer modulo 998244353 in a single line. Sample Input42 3 32 3 43 3 3128 3 340 Sample Output107903 Source2018 Multi-University Training Contest 8 Solution这题我刚开始直接无脑上了多项式快速幂，然后就T飞了，于是被戴大爷教做人……真的是知识越多越反动 我们考虑如果没有每个数在0~n-1这个条件的话，那就是一个简单的盒子可空的隔板法问题，现在加上这个限制，我们考虑容斥，那么最后的方案可以写成这样 $$ans=\sum_{i=0}^{lim}(-1)^i*f(至少有i个数大于n-1)$$ 现在考虑$f(至少有i个数大于n-1)$怎么算，我们可以先钦定哪i个位置比n-1大，这个是$C_m^i$，然后剩下的依旧是一个简单的隔板法，于是就做完了 Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123#include &lt;bits/stdc++.h&gt;using namespace std;#define LL long long#define LB long double#define ull unsigned long long#define x first#define y second#define pb push_back#define pf push_front#define mp make_pair#define Pair pair&lt;int,int&gt;#define pLL pair&lt;LL,LL&gt;#define pii pair&lt;double,double&gt;const int INF=2e9;const LL LINF=2e16;const int magic=348;const int MOD=998244353;const double eps=1e-10;const double pi=acos(-1);struct fastio&#123; static const int S=1e7; char rbuf[S+48],wbuf[S+48];int rpos,wpos,len; fastio() &#123;rpos=len=wpos=0;&#125; inline char Getchar() &#123; if (rpos==len) rpos=0,len=fread(rbuf,1,S,stdin); if (!len) return EOF; return rbuf[rpos++]; &#125; template &lt;class T&gt; inline void Get(T &amp;x) &#123; char ch;bool f;T res; while (!isdigit(ch=Getchar()) &amp;&amp; ch!='-') &#123;&#125; if (ch=='-') f=false,res=0; else f=true,res=ch-'0'; while (isdigit(ch=Getchar())) res=res*10+ch-'0'; x=(f?res:-res); &#125; inline void getstring(char *s) &#123; char ch; while ((ch=Getchar())&lt;=32) &#123;&#125; for (;ch&gt;32;ch=Getchar()) *++s=ch; *(s+1)='\0'; &#125; inline void flush() &#123;fwrite(wbuf,1,wpos,stdout);fflush(stdout);wpos=0;&#125; inline void Writechar(char ch) &#123; if (wpos==S) flush(); wbuf[wpos++]=ch; &#125; template &lt;class T&gt; inline void Print(T x) &#123; char s[20];int pt=0; if (x==0) s[++pt]='0'; else &#123; if (x&lt;0) Writechar('-'),x=-x; while (x) s[++pt]='0'+x%10,x/=10; &#125; while (pt) Writechar(s[pt--]); Writechar('\n'); &#125; inline void printstring(char *s) &#123; int pt=1; while (s[pt]!='\0') Writechar(s[pt++]); &#125;&#125;io;const int MAXN=3e5;inline int quick_pow(int x,int y)&#123; int res=1; while (y) &#123; if (y&amp;1) res=(1ll*res*x)%MOD,y--; x=(1ll*x*x)%MOD,y&gt;&gt;=1; &#125; return res;&#125;inline int add(int x) &#123;if (x&gt;=MOD) x-=MOD;return x;&#125;inline int sub(int x) &#123;if (x&lt;0) x+=MOD;return x;&#125;int fac[MAXN+48],finv[MAXN+48];inline void init_inv()&#123; fac[0]=1; for (register int i=1;i&lt;=MAXN;i++) fac[i]=(1ll*fac[i-1]*i)%MOD; finv[MAXN]=quick_pow(fac[MAXN],MOD-2); for (register int i=MAXN-1;i&gt;=0;i--) finv[i]=(1ll*finv[i+1]*(i+1))%MOD;&#125;inline int C(int x,int y)&#123; if (x&lt;0 || y&lt;0 || x&lt;y) return 0; return ((1ll*fac[x]*finv[y])%MOD*finv[x-y])%MOD;&#125;int n,m,k;int main ()&#123; int ca;io.Get(ca); init_inv(); while (ca--) &#123; io.Get(n);io.Get(m);io.Get(k); int ans=0; for (register int i=0;i&lt;=m &amp;&amp; n*i&lt;=k;i++) &#123; int delta=(1ll*C(m,i)*C(k-n*i+m-1,m-1))%MOD; if (i&amp;1) ans=sub(ans-delta); else ans=add(ans+delta); &#125; io.Print(ans); &#125; io.flush();return 0;&#125;]]></content>
-      <categories>
-        <category>OI</category>
-        <category>数学</category>
-        <category>容斥原理</category>
-      </categories>
-      <tags>
-        <tag>HDU</tag>
-        <tag>2018多校</tag>
-        <tag>数学</tag>
-        <tag>容斥原理</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Codeforces #1019B: The hat 题解]]></title>
     <url>%2Fblog%2Fcf1019b%2F</url>
     <content type="text"><![CDATA[DescriptionThis is an interactive problem. Imur Ishakov decided to organize a club for people who love to play the famous game «The hat». The club was visited by n students, where n is even. Imur arranged them all in a circle and held a draw to break the students in pairs, but something went wrong. The participants are numbered so that participant i and participant i + 1 (1 ≤ i ≤ n - 1) are adjacent, as well as participant n and participant 1. Each student was given a piece of paper with a number in such a way, that for every two adjacent students, these numbers differ exactly by one. The plan was to form students with the same numbers in a pair, but it turned out that not all numbers appeared exactly twice. As you know, the most convenient is to explain the words to the partner when he is sitting exactly across you. Students with numbers i and sit across each other. Imur is wondering if there are two people sitting across each other with the same numbers given. Help him to find such pair of people if it exists. You can ask questions of form «which number was received by student i?», and the goal is to determine whether the desired pair exists in no more than 60 questions. InputAt the beginning the even integer n (2 ≤ n ≤ 100 000) is given — the total number of students. You are allowed to ask no more than 60 questions. OutputTo ask the question about the student i (1 ≤ i ≤ n), you should print «? i». Then from standard output you can read the number ai received by student i ( - 109 ≤ ai ≤ 109). When you find the desired pair, you should print «! i», where i is any student who belongs to the pair (1 ≤ i ≤ n). If you determined that such pair doesn’t exist, you should output «! -1». In both cases you should immediately terminate the program. The query that contains your answer is not counted towards the limit of 60 queries. Please make sure to flush the standard output after each command. For example, in C++ use function fflush(stdout), in Java call System.out.flush(), in Pascal use flush(output) and stdout.flush() for Python language. HackingUse the following format for hacking: In the first line, print one even integer n (2 ≤ n ≤ 100 000) — the total number of students. In the second line print n integers ai ( - 109 ≤ ai ≤ 109) separated by spaces, where ai is the number to give to i-th student. Any two adjacent elements, including n and 1, must differ by 1 or - 1. The hacked solution will not have direct access to the sequence ai. Examplesinput 822 output ? 4? 8! 4 input 6123210 output ? 1? 2? 3? 4? 5? 6! -1 NoteInput-output in statements illustrates example interaction. In the first sample the selected sequence is 1, 2, 1, 2, 3, 4, 3, 2 In the second sample the selection sequence is 1, 2, 3, 2, 1, 0. Solution交互题毁我青春……本人不擅长做动脑子的题，这个花了整场比赛才做出来，于是rnk在2题里面垫底。。。 既然次数只有60次，感觉每次肯定要查询相对的两个人，相当于查询30组，估计是二分相关 我们永远考虑位置相对的两个扇形，设上面的扇形上的数字从a到A,下面的扇形上的数字从b到B 通过仔细的观察，我们能发现一些结论： 如果$abs(a-b)\equiv 1(mod 2)$，那么这两个扇形区域内必然没有任何一组数相等 如果$a&gt;b$且$A&lt;B$，那这两个扇形区域内必然有一组数相等 如果(a,A),(b,B)两个区间不相交，那么这两个扇形区域内必然没有任何一组数相等 进而我们可以发现，对于相对的两个扇形，我们二分出中间的一条线，把他们切成两组扇形，这两组扇形要么有一组铁定无解，要么至少有一组铁定有解，无论是哪一种情况，我们都可以把另一半扔掉，在必定有解的那一半里继续二分 这就是大概的思路了 Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102#include &lt;bits/stdc++.h&gt;using namespace std;#define LL long long#define LB long double#define ull unsigned long long#define x first#define y second#define pb push_back#define pf push_front#define mp make_pair#define Pair pair&lt;int,int&gt;#define pLL pair&lt;LL,LL&gt;#define pii pair&lt;double,double&gt;const int INF=2e9;const LL LINF=2e16;const int magic=348;const int MOD=998244353;const double eps=1e-10;const double pi=acos(-1);inline int getint()&#123; bool f;char ch;int res; while (!isdigit(ch=getchar()) &amp;&amp; ch!='-') &#123;&#125; if (ch=='-') f=false,res=0; else f=true,res=ch-'0'; while (isdigit(ch=getchar())) res=res*10+ch-'0'; return f?res:-res;&#125;int n;int a,A,b,B,m,M;inline int myabs(int x) &#123;return x&gt;=0?x:-x;&#125;inline bool check_invalid()&#123; if (myabs(a-b)%2==0) return false; if (myabs(A-B)%2==0) return false; return true;&#125;inline bool Contain(int l1,int r1,int l2,int r2)&#123; if (l1&gt;l2 &amp;&amp; r1&lt;r2) return true; if (l1&lt;l2 &amp;&amp; r1&gt;r2) return true; return false;&#125;inline bool Away(int l1,int r1,int l2,int r2)&#123; if (l1&gt;r1) swap(l1,r1); if (l2&gt;r2) swap(l2,r2); return r1&lt;l2 || r2&lt;l1;&#125;int main ()&#123; n=getint(); if (n==2) &#123; printf("? 1\n");fflush(stdout);scanf("%d",&amp;a); printf("? 2\n");fflush(stdout);scanf("%d",&amp;A); if (a==A) printf("! 1\n"); else printf("! -1\n"); return 0; &#125; int la=1,lA=n/2; printf("? 1\n");fflush(stdout);scanf("%d",&amp;a); printf("? %d\n",lA);fflush(stdout);scanf("%d",&amp;A); printf("? %d\n",la+n/2);fflush(stdout);scanf("%d",&amp;b); printf("? %d\n",lA+n/2);fflush(stdout);scanf("%d",&amp;B); if (a==b) &#123; printf("! 1\n"); return 0; &#125; if (A==B) &#123; printf("! %d\n",lA); return 0; &#125; if (check_invalid()) &#123;printf("! -1\n");return 0;&#125; while (lA-la&gt;1) &#123; int mid=(la+lA)&gt;&gt;1,to=mid+n/2; printf("? %d\n",mid);fflush(stdout);scanf("%d",&amp;m); printf("? %d\n",to);fflush(stdout);scanf("%d",&amp;M); if (m==M) &#123; printf("! %d\n",mid); return 0; &#125; if (Contain(a,m,b,M)) &#123;lA=mid;A=m;B=M;continue;&#125; if (Contain(m,A,M,B)) &#123;la=mid;a=m;b=M;continue;&#125; if (Away(a,m,b,M)) &#123;la=mid;a=m;b=M;continue;&#125; if (Away(m,A,M,B)) &#123;lA=mid;A=m;B=M;continue;&#125; &#125; if (a==b) &#123;printf("! %d\n",la);return 0;&#125; if (A==B) &#123;printf("! %d\n",lA);return 0;&#125; printf("! -1\n");return 0;&#125;]]></content>
@@ -338,9 +339,9 @@
         <category>交互题</category>
       </categories>
       <tags>
+        <tag>思维</tag>
         <tag>Codeforces</tag>
         <tag>交互题</tag>
-        <tag>思维</tag>
       </tags>
   </entry>
 </search>
