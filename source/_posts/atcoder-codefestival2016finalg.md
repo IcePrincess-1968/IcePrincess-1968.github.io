@@ -4,7 +4,7 @@ date: 2018-9-24
 title: "AtCoder Code Festival 2016 Final G: Zigzag MST 题解"
 categories:
 - [OI, 图论, 最小生成树]
-tags: [atcoder, 最小生成树]
+tags: [AtCoder, 图论, 最小生成树]
 mathjax: true
 ---
 
