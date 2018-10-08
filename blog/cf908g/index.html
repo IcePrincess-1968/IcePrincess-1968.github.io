@@ -109,14 +109,14 @@
 
 
   <meta name="description" content="DescriptionLet S(n) denote the number that represents the digits of n in sorted order. For example, S(1) = 1, S(5) = 5, S(50394) = 3459, S(353535) = 333555. Given a number X, compute modulo $10^9 + 7$">
-<meta name="keywords" content="Codeforces,思维,dp">
+<meta name="keywords" content="思维,dp,Codeforces">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Codeforces #908G: New Year and Original Order 题解">
 <meta property="og:url" content="http://yoursite.com/blog/cf908g/index.html">
 <meta property="og:site_name" content="IcePrincess_1968">
 <meta property="og:description" content="DescriptionLet S(n) denote the number that represents the digits of n in sorted order. For example, S(1) = 1, S(5) = 5, S(50394) = 3459, S(353535) = 333555. Given a number X, compute modulo $10^9 + 7$">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-25T06:35:34.621Z">
+<meta property="og:updated_time" content="2018-10-08T06:10:05.624Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Codeforces #908G: New Year and Original Order 题解">
 <meta name="twitter:description" content="DescriptionLet S(n) denote the number that represents the digits of n in sorted order. For example, S(1) = 1, S(5) = 5, S(50394) = 3459, S(353535) = 333555. Given a number X, compute modulo $10^9 + 7$">
@@ -400,12 +400,24 @@
                 
               
 
-              <time title="创建时间：2018-09-25 00:00:00 / 修改时间：14:35:34" itemprop="dateCreated datePublished" datetime="2018-09-25T00:00:00+08:00">2018-09-25</time>
+              <time title="创建时间：2018-09-25 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-25T00:00:00+08:00">2018-09-25</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-10-08 14:10:05" itemprop="dateModified" datetime="2018-10-08T14:10:05+08:00">2018-10-08</time>
               
             
           </span>
@@ -506,7 +518,7 @@
 <p>我们尝试考虑每一位的贡献，也就是要算第i位是j的数有多少个</p>
 <p>容易想到一个$O(n^3)$的dp:令$dp[i][j][k][l][cmp]$表示当前考虑到第$i$位，大于等于j的数位有k个，j这个数位有l个，当前数与$n$的大小关系是cmp的情况下有多少种情况，转移只要枚举下一个数是多少即可</p>
 <p>这样最后在算答案的时候，把这连续的$l$个$j$统计一下贡献即可</p>
-<p>然而这题需要$O(n^2)$的复杂度，考虑优化：我们把上面的dp中$l$的那一维去掉，这样算dp的复杂度是$O(n^2)$的，但你会发现答案不好统计了，因为比如如果你有一串3，中间的那些3无法通过充斥得到</p>
+<p>然而这题需要$O(n^2)$的复杂度，考虑优化：我们把上面的dp中$l$的那一维去掉，这样算dp的复杂度是$O(n^2)$的，但你会发现答案不好统计了，因为比如如果你有一串3，中间的那些3无法通过差分得到</p>
 <p>于是有这样一个神结论：对于每个$sum=dp[n][j][k][0]+dp[n][j][k][1]$，对答案的贡献是$sum*\underbrace{11…111}_{j个1}$</p>
 <p>下面证这个结论的正确性：我们尝试考虑每个数按数位排好序的那个序列是怎样被计算到的</p>
 <p>首先对于最左边的数码$x_1$，显然会有$x_1$个长度为n的dp中会算到这个排列，所以会加$x_1$个$\underbrace{11…111}_{n个1}$，一个很好的性质是，如果有若干个连续的相同数码，在上面的dp中非开头位不会体现在某个状态之中，一起跟着开头的那个数位算掉了</p>
@@ -531,11 +543,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Codeforces/" rel="tag"># Codeforces</a>
-          
             <a href="/tags/思维/" rel="tag"># 思维</a>
           
             <a href="/tags/dp/" rel="tag"># dp</a>
+          
+            <a href="/tags/Codeforces/" rel="tag"># Codeforces</a>
           
         </div>
       
@@ -548,8 +560,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/atcoder-codefestival2016finalg/" rel="next" title="AtCoder Code Festival 2016 Final G: Zigzag MST 题解">
-                <i class="fa fa-chevron-left"></i> AtCoder Code Festival 2016 Final G: Zigzag MST 题解
+              <a href="/blog/cf1045a/" rel="next" title="Codeforces #1045A: Last Chance 题解">
+                <i class="fa fa-chevron-left"></i> Codeforces #1045A: Last Chance 题解
               </a>
             
           </div>
@@ -638,7 +650,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
