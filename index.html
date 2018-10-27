@@ -354,6 +354,403 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/nflsoj260/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="IcePrincess_1968">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IcePrincess_1968">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/nflsoj260/" itemprop="url">
+                  NFLSoj #260: 环 题解
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-27 00:00:00 / 修改时间：23:41:04" itemprop="dateCreated datePublished" datetime="2018-10-27T00:00:00+08:00">2018-10-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/图论/" itemprop="url" rel="index"><span itemprop="name">图论</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/" itemprop="url" rel="index"><span itemprop="name">常用技术</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/容斥/" itemprop="url" rel="index"><span itemprop="name">容斥</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>对于一张 n 个点的竞赛图 G，其中 e 条边的方向已经确定，剩下的边朝向是两边等概率的。</p>
+<p>求 G 中最小环的期望个数对 1e9+7 取模的结果。</p>
+<p>特别地，若 G 无环，则我们认为这种情况下最小环个数为 0。</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>第一行两个数 n,e。</p>
+<p>接下来 e 行，每行两个数 x,y 表示一条确定的边。</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>输出一行一个数表示答案。</p>
+<h2 id="Sample-1-amp-2"><a href="#Sample-1-amp-2" class="headerlink" title="Sample 1 &amp; 2"></a>Sample 1 &amp; 2</h2><p>见下发文件。</p>
+<h2 id="Constraints"><a href="#Constraints" class="headerlink" title="Constraints"></a>Constraints</h2><p>对于 30% 的数据，n≤300。</p>
+<p>对于另 20% 的数据，e=0。</p>
+<p>对于另 20% 的数据，e=n(n−1)/2。</p>
+<p>对于 100% 的数据，1≤n≤1e5，1≤e≤1e6。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>竞赛图有这样一个性质：整张图要么是一个DAG，要么存在三元环。因为考虑每一个三元组(i,j,k)，根据抽屉原理三条边至少有两条边是同向的，此时第三条边如果和前两条同向就形成了三元环，否则就是一个DAG。(这里同向指顺时针和逆时针)</p>
+<p>于是这题变成了竞赛图三元环计数，有一种线性的做法：考虑容斥，所有的无序三元组(i,j,k)的个数是$C_N^3$，考虑减去那些不是三元环的三元组，我们发现对于一个不是三元环的三元组，有且仅有一个点的度数为2，我们考虑在这种点上统计个数。</p>
+<p>我们枚举每一个点，将其出边两两搭配就能得到所有的非三元环情况，注意每个点的n-1条边中有些边确定是出边，设数量为$p$，有些边确定不是出边，还有一些边没有定向，有$\frac{1}{2}$的概率是出边，设数量为$q$，于是一个点的答案是$\frac{p(p-1)}{2}+p\cdot \frac{q}{2}+\frac{q(q-1)}{2}\cdot \frac{1}{4}$</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LB long double</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ull unsigned long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> x first</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> y second</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pf push_front</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mp make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Pair pair<span class="meta-string">&lt;int,int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pLL pair<span class="meta-string">&lt;LL,LL&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pii pair<span class="meta-string">&lt;double,double&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOWBIT(x) x &amp; (-x)</span></span><br><span class="line"><span class="comment">// #define LOCAL true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF=<span class="number">2e9</span>;</span><br><span class="line"><span class="keyword">const</span> LL LINF=<span class="number">2e16</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> magic=<span class="number">348</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MOD=<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> eps=<span class="number">1e-10</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> pi=<span class="built_in">acos</span>(<span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">fastio</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> S=<span class="number">1e7</span>;</span><br><span class="line">    <span class="keyword">char</span> rbuf[S+<span class="number">48</span>],wbuf[S+<span class="number">48</span>];<span class="keyword">int</span> rpos,wpos,len;</span><br><span class="line">    fastio() &#123;rpos=len=wpos=<span class="number">0</span>;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">char</span> <span class="title">Getchar</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (rpos==len) rpos=<span class="number">0</span>,len=fread(rbuf,<span class="number">1</span>,S,<span class="built_in">stdin</span>);</span><br><span class="line">        <span class="keyword">if</span> (!len) <span class="keyword">return</span> EOF;</span><br><span class="line">        <span class="keyword">return</span> rbuf[rpos++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt; <span class="title">inline</span> <span class="title">void</span> <span class="title">Get</span>(<span class="title">T</span> &amp;<span class="title">x</span>)</span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="keyword">char</span> ch;<span class="keyword">bool</span> f;T res;</span><br><span class="line">        <span class="keyword">while</span> (!<span class="built_in">isdigit</span>(ch=Getchar()) &amp;&amp; ch!=<span class="string">'-'</span>) &#123;&#125;</span><br><span class="line">        <span class="keyword">if</span> (ch==<span class="string">'-'</span>) f=<span class="literal">false</span>,res=<span class="number">0</span>; <span class="keyword">else</span> f=<span class="literal">true</span>,res=ch-<span class="string">'0'</span>;</span><br><span class="line">        <span class="keyword">while</span> (<span class="built_in">isdigit</span>(ch=Getchar())) res=res*<span class="number">10</span>+ch-<span class="string">'0'</span>;</span><br><span class="line">        x=(f?res:-res);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">getstring</span><span class="params">(<span class="keyword">char</span> *s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">char</span> ch;</span><br><span class="line">        <span class="keyword">while</span> ((ch=Getchar())&lt;=<span class="number">32</span>) &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> (;ch&gt;<span class="number">32</span>;ch=Getchar()) *s++=ch;</span><br><span class="line">        *s=<span class="string">'\0'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">flush</span><span class="params">()</span> </span>&#123;fwrite(wbuf,<span class="number">1</span>,wpos,<span class="built_in">stdout</span>);fflush(<span class="built_in">stdout</span>);wpos=<span class="number">0</span>;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Writechar</span><span class="params">(<span class="keyword">char</span> ch)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (wpos==S) flush();</span><br><span class="line">        wbuf[wpos++]=ch;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt; <span class="title">inline</span> <span class="title">void</span> <span class="title">Print</span>(<span class="title">T</span> <span class="title">x</span>,<span class="title">char</span> <span class="title">ch</span>)</span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="keyword">char</span> s[<span class="number">20</span>];<span class="keyword">int</span> pt=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (x==<span class="number">0</span>) s[++pt]=<span class="string">'0'</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (x&lt;<span class="number">0</span>) Writechar(<span class="string">'-'</span>),x=-x;</span><br><span class="line">            <span class="keyword">while</span> (x) s[++pt]=<span class="string">'0'</span>+x%<span class="number">10</span>,x/=<span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (pt) Writechar(s[pt--]);</span><br><span class="line">        Writechar(ch);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">printstring</span><span class="params">(<span class="keyword">char</span> *s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> pt=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (s[pt]!=<span class="string">'\0'</span>) Writechar(s[pt++]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;io;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">check_max</span><span class="params">(T &amp;x,T cmp)</span> </span>&#123;x=max(x,cmp);&#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">check_min</span><span class="params">(T &amp;x,T cmp)</span> </span>&#123;x=min(x,cmp);&#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">inline</span> T <span class="title">myabs</span><span class="params">(T x)</span> </span>&#123;<span class="keyword">return</span> x&gt;=<span class="number">0</span>?x:-x;&#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">inline</span> T <span class="title">gcd</span><span class="params">(T x,T y)</span> </span>&#123;<span class="keyword">return</span> y==<span class="number">0</span>?x:gcd(y,x%y);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;<span class="keyword">if</span> (x&gt;=MOD) x-=MOD;<span class="keyword">return</span> x;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> MO)</span> </span>&#123;<span class="keyword">if</span> (x&gt;=MO) x-=MO;<span class="keyword">return</span> x;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">sub</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;<span class="keyword">if</span> (x&lt;<span class="number">0</span>) x+=MOD;<span class="keyword">return</span> x;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">sub</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> MO)</span> </span>&#123;<span class="keyword">if</span> (x&lt;<span class="number">0</span>) x+=MO;<span class="keyword">return</span> x;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Add</span><span class="params">(<span class="keyword">int</span> &amp;x,<span class="keyword">int</span> y)</span> </span>&#123;x=add(x+y);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Add</span><span class="params">(<span class="keyword">int</span> &amp;x,<span class="keyword">int</span> y,<span class="keyword">int</span> MO)</span> </span>&#123;x=add(x+y,MO);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Sub</span><span class="params">(<span class="keyword">int</span> &amp;x,<span class="keyword">int</span> y)</span> </span>&#123;x=sub(x-y);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Sub</span><span class="params">(<span class="keyword">int</span> &amp;x,<span class="keyword">int</span> y,<span class="keyword">int</span> MO)</span> </span>&#123;x=sub(x-y,MO);&#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">quick_pow</span><span class="params">(<span class="keyword">int</span> x,T y)</span> </span>&#123;<span class="keyword">int</span> res=<span class="number">1</span>;<span class="keyword">while</span> (y) &#123;<span class="keyword">if</span> (y&amp;<span class="number">1</span>) res=<span class="number">1l</span>l*res*x%MOD;x=<span class="number">1l</span>l*x*x%MOD;y&gt;&gt;=<span class="number">1</span>;&#125;<span class="keyword">return</span> res;&#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">quick_pow</span><span class="params">(<span class="keyword">int</span> x,T y,<span class="keyword">int</span> MO)</span> </span>&#123;<span class="keyword">int</span> res=<span class="number">1</span>;<span class="keyword">while</span> (y) &#123;<span class="keyword">if</span> (y&amp;<span class="number">1</span>) res=<span class="number">1l</span>l*res*x%MO;x=<span class="number">1l</span>l*x*x%MO;y&gt;&gt;=<span class="number">1</span>;&#125;<span class="keyword">return</span> res;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN=<span class="number">1e5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,e;</span><br><span class="line"><span class="keyword">int</span> cnt[MAXN+<span class="number">48</span>],deg[MAXN+<span class="number">48</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">    <span class="keyword">double</span> TIME=clock();</span><br><span class="line">    freopen (<span class="string">"a.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">    freopen (<span class="string">"a.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">    <span class="built_in">cerr</span>&lt;&lt;<span class="string">"Running..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    io.Get(n);io.Get(e);</span><br><span class="line">    <span class="keyword">int</span> x,y;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=e;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        io.Get(x);io.Get(y);</span><br><span class="line">        cnt[x]++;cnt[y]++;deg[x]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> i2=quick_pow(<span class="number">2</span>,MOD<span class="number">-2</span>),i8=<span class="number">1l</span>l*i2*i2%MOD*i2%MOD,i6=quick_pow(<span class="number">6</span>,MOD<span class="number">-2</span>);</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">1l</span>l*n*(n<span class="number">-1</span>)%MOD*(n<span class="number">-2</span>)%MOD*i6%MOD;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Sub(ans,<span class="number">1l</span>l*deg[i]*(deg[i]<span class="number">-1</span>)%MOD*i2%MOD);</span><br><span class="line">        <span class="keyword">int</span> doubt=(n<span class="number">-1</span>)-cnt[i];</span><br><span class="line">        Sub(ans,<span class="number">1l</span>l*deg[i]*doubt%MOD*i2%MOD);</span><br><span class="line">        Sub(ans,<span class="number">1l</span>l*doubt*(doubt<span class="number">-1</span>)%MOD*i8%MOD);</span><br><span class="line">    &#125;</span><br><span class="line">    io.Print(ans,<span class="string">'\n'</span>);</span><br><span class="line">    io.flush();</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">    <span class="built_in">cerr</span>&lt;&lt;<span class="string">"Exec Time: "</span>&lt;&lt;(clock()-TIME)/CLOCKS_PER_SEC&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/nflsoj233/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="IcePrincess_1968">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IcePrincess_1968">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/nflsoj233/" itemprop="url">
+                  NFLSoj #233: 染色 题解
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-21 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-21T00:00:00+08:00">2018-10-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-10-27 23:42:24" itemprop="dateModified" datetime="2018-10-27T23:42:24+08:00">2018-10-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/" itemprop="url" rel="index"><span itemprop="name">常用技术</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数据结构/BIT/" itemprop="url" rel="index"><span itemprop="name">BIT</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/点分树/" itemprop="url" rel="index"><span itemprop="name">点分树</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h2><p>WXH是天下第一的。一日，他正向众生播撒福音：</p>
+<p>WXH说——要有树。于是这世上便有了树：一棵n个节点的冒金光的树。</p>
+<p>WXH说——要有颜色。于是这树上便有了颜色：n个节点依次从WXH处得到了WXH无私的馈赠—— m种颜色之一。</p>
+<p>WXH说——同样的颜色不能靠的太近，也不能太远。于是，所有<strong>同色点对距离的最小值</strong>介于[L,R]之间的树被留下，而剩余的都被销毁。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/blog/nflsoj233/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/number/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1811,367 +2208,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/tcsrm337div1c/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="IcePrincess_1968">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IcePrincess_1968">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/tcsrm337div1c/" itemprop="url">
-                  TopCoder SRM337DIV1C: CountPalindromes 题解
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-09-29 00:00:00 / 修改时间：16:11:52" itemprop="dateCreated datePublished" datetime="2018-09-29T00:00:00+08:00">2018-09-29</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/Dynamic-Programming/" itemprop="url" rel="index"><span itemprop="name">Dynamic Programming</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h2><p>A palindrome is a string that reads the same from left to right as it does from right to left, ignoring spaces. We are building a machine that makes the best palindromes in the world and we need you to make a function that calculates the number of possible results before trying it for the first time.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blog/tcsrm337div1c/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/nflsoj218/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="IcePrincess_1968">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IcePrincess_1968">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/nflsoj218/" itemprop="url">
-                  NFLSoj #228: 比赛 题解
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-09-28 00:00:00 / 修改时间：16:52:56" itemprop="dateCreated datePublished" datetime="2018-09-28T00:00:00+08:00">2018-09-28</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/Dynamic-Programming/" itemprop="url" rel="index"><span itemprop="name">Dynamic Programming</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/Dynamic-Programming/斜率优化/" itemprop="url" rel="index"><span itemprop="name">斜率优化</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/" itemprop="url" rel="index"><span itemprop="name">常用技术</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/cdq分治/" itemprop="url" rel="index"><span itemprop="name">cdq分治</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Problem-statement"><a href="#Problem-statement" class="headerlink" title="Problem statement"></a>Problem statement</h2><p>陈太阳非常喜欢打比赛。</p>
-<p>最近有 n 个比赛，陈太阳参加第 i 个比赛能获得的快乐值是 ai，他准备选择某些比赛去虐场。</p>
-<p>他选择的比赛的快乐值必须满足快乐值不下降，即如果陈太阳参加了第 $i$,$j$ 个比赛，且 $i&lt;j$，则必须有 $a_i<br>\leq a_j$。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blog/nflsoj218/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2219,7 +2255,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2300,7 +2336,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">34</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2391,7 +2433,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">39</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
