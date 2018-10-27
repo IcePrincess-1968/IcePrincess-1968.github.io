@@ -5,7 +5,8 @@ title: "NFLSoj #233: 染色 题解"
 categories:
 - [OI, 数据结构, BIT]
 - [OI, 常用技术, 点分树]
-tags: [NFLSoj, 清华集训模拟, 点分树, BIT]
+- [OI, 常用技术, 容斥]
+tags: [NFLSoj, 清华集训模拟, 点分树, BIT, 容斥原理]
 mathjax: true
 ---
 
