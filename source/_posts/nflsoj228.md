@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-9-30
-title: "NFLSoj #228: 地理课 题解"
+title: "[NFLSoj #228]地理课 题解"
 categories:
 - [OI, 数据结构, 并查集]
 - [OI, 数据结构, 线段树]

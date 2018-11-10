@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-11-07
-title: "NFLSoj #294: c 题解"
+title: "[NFLSoj #294]c 题解"
 categories:
 - [OI, 常用技术, 莫队, 树上莫队]
 - [OI, 常用技术, 分块]

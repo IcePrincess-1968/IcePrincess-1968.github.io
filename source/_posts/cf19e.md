@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-11-05
-title: "Codeforces #19E: Fairy 题解"
+title: "[Codeforces #19E]Fairy 题解"
 categories:
 - [OI, 数据结构, 并查集, 可撤销并查集]
 - [OI, 常用技术, 分治]

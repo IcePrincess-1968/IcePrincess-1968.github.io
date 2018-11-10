@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-9-30
-title: "AtCoder Regular Contest 092F: Two Faced Edges 题解"
+title: "[AtCoder Regular Contest 092F]Two Faced Edges 题解"
 categories:
 - [OI, 图论]
 - [OI, 思维]

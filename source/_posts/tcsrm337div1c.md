@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-9-29
-title: "TopCoder SRM337DIV1C: CountPalindromes 题解"
+title: "[TopCoder SRM337DIV1C]CountPalindromes 题解"
 categories:
 - [OI, Dynamic Programming]
 tags: [TopCoder, dp]

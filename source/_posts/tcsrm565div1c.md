@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-10-01
-title: "TopCoder SRM565DIV1C: UnknownTree 题解"
+title: "[TopCoder SRM565DIV1C]UnknownTree 题解"
 categories:
 - [OI, 思维]
 - [OI, 其它, 分类讨论题]

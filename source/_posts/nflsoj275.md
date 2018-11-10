@@ -1,10 +1,10 @@
 ---
 layout: post
 date: 2018-11-01
-title: "[NFLSoj #275]b 题解"
+title: "[NOIP模拟赛]b 题解"
 categories:
 - [OI, 常用技术, 根号暴力]
-tags: [NFLSoj, 根号暴力]
+tags: [NOIP模拟赛, 根号暴力]
 mathjax: true
 ---
 

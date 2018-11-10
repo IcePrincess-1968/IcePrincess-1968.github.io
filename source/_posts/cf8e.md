@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-10-08
-title: "Codeforces #8E: Beads 题解"
+title: "[Codeforces #8E]Beads 题解"
 categories:
 - [OI, 思维]
 tags: [Codeforces, 思维]

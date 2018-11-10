@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-10-09
-title: "TopCoder SRM198DIV1C: Soma 题解"
+title: "[TopCoder SRM198DIV1C]Soma 题解"
 categories:
 - [OI, 其它, 大模拟]
 tags: [TopCoder, 大模拟]

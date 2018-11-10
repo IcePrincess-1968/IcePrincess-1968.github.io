@@ -1,7 +1,7 @@
 ---
 layout: post
 data: 2018-9-19
-title: "TopCoder SRM664DIV1A: BearPlays 题解"
+title: "[TopCoder SRM664DIV1A]BearPlays 题解"
 categories:
 - [OI, 数学]
 tags: [TopCoder, 数学]

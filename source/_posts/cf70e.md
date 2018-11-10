@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-11-04
-title: "Codeforces #70E: Information Reform 题解"
+title: "[Codeforces #70E]Information Reform 题解"
 categories:
 - [OI, Dynamic Programming]
 tags: [Codeforces, dp]
