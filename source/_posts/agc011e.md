@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-11-08
-title: "AtCoder Grand Contest 011E: Increasing Numbers 题解"
+title: "[AtCoder Grand Contest 011E]Increasing Numbers 题解"
 categories:
 - [OI, 思维]
 tags: [AtCoder, 思维]
