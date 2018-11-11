@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-9-28
-title: "[NFLSoj #228]比赛 题解"
+title: "[NFLSoj #228][McfXH AK Contest]比赛 题解"
 categories:
 - [OI, Dynamic Programming, 斜率优化]
 - [OI, 常用技术, cdq分治]

@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-10-21
-title: "[NFLSoj #233]染色 题解"
+title: "[NFLSoj #233][McfXH AK Contest #2]染色 题解"
 categories:
 - [OI, 数据结构, BIT]
 - [OI, 常用技术, 点分树]

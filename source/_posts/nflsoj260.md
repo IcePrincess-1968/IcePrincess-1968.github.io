@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-10-27
-title: "[NFLSoj #260]环 题解"
+title: "[NFLSoj #260][六校联合训练 #7]环 题解"
 categories: 
 - [OI, 常用技术, 容斥]
 - [OI, 图论]
