@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-11-11
-title "[NFLSoj #270][六校联合训练 #9]菊凯的疑惑 题解"
+title: "[NFLSoj #270][六校联合训练 #9]菊凯的疑惑 题解"
 categories:
 - [OI, Dynamic Programming, 树型dp]
 - [OI, 常用技术, 高斯消元, 树上高消]
