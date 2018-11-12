@@ -109,13 +109,8 @@ $$(1-\frac{\sum_{v\in son_u}k_v}{deg_u})f_{u,i}=\frac{f_{fa_u,i}}{deg_u}+g_{u,i}
 $$f_{u,i}=\frac{1}{deg_u-\sum_{v\in son_u}k_v}f_{fa_u,i}+\frac{\sum_{v\in son_u}b_v}{deg_u-\sum_{v\in son_u}k_v}+g_{u,i}$$
 
 所以
-$$ \left\{
-\begin{aligned}
-k_u &= \frac{1}{deg_u-\sum_{v\in son_u}k_v} \\
-b_u &= \frac{\sum_{v\in son_u}b_v}{deg_u-\sum_{v\in son_u}k_v}+g_{u,i}
-\end{aligned}
-\right.
-$$
+$$ k_u = \frac{1}{deg_u-\sum_{v\in son_u}k_v}$$
+$$ b_u = \frac{\sum_{v\in son_u}b_v}{deg_u-\sum_{v\in son_u}k_v}+g_{u,i}$$ 
 
 这样只要从下到上算一遍$k_u$和$b_u$，再根据$f_{root,i}=0$从上到下推一遍就解出了所有的未知数。
 
@@ -128,10 +123,8 @@ $$S(n,k)=\frac{1}{k!}\sum_{i=0}^k(-1)^i\binom{k}{i}(k-i)^n$$
 
 对式子做一些变换
 $$
-\begin{aligned}
-S(n,k) &= \frac{1}{k!}\sum_{i=0}^k(-1)^i(k-i)^n\frac{k!}{i!(k-i)!} \\
-&= \sum_{i=0}^k\frac{(k-i)^n}{(k-i)!}\frac{(-1)^i}{i!}
-\end{aligned}
+S(n,k) = \frac{1}{k!}\sum_{i=0}^k(-1)^i(k-i)^n\frac{k!}{i!(k-i)!} 
+= \sum_{i=0}^k\frac{(k-i)^n}{(k-i)!}\frac{(-1)^i}{i!}
 $$
 
 这显然是一个卷积的形式，用$NTT$加速即可做到$O(klogk)$
