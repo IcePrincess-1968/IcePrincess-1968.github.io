@@ -12,6 +12,8 @@ mathjax: true
 Min-Max容斥的公式如下：
 $$Max(S)=\sum_{T\subseteq S}(-1)^{\mid T\mid +1}Min(T)$$
 
+<!-- more -->
+
 证明：
 
 首先证明一个引理：对于$\forall n>0$，$\sum_{i=0}^n(-1)^iC_n^i=0$
