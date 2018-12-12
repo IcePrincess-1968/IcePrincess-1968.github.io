@@ -1,13 +1,13 @@
 ---
 layout: post
 date: 2018-12-12
-title: "[NFLSoj #28][CSTC2010]珠宝商 题解"
+title: "[NFLSoj #28][CTSC2010]珠宝商 题解"
 categories:
 - [OI, 字符串, SAM]
 - [OI, 字符串, 后缀树]
 - [OI, 常用技术, 点分治]
 - [OI, 常用技术, 根号暴力]
-tags: [NFLSoj, CSTC, 字符串, SAM, 后缀树, 点分治, 根号暴力]
+tags: [NFLSoj, CTSC, 字符串, SAM, 后缀树, 点分治, 根号暴力]
 mathjax: true
 ---
 
