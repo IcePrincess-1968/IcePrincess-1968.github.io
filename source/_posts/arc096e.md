@@ -4,7 +4,7 @@ date: 2018-12-09
 title: "[AtCoder Regular Contest #096E]Everything on It 题解"
 categories:
 - [OI, 数学, 容斥原理]
-- [OI, 数学, 第二类斯特林数]
+- [OI, 数学, 斯特林数, 第二类斯特林数]
 tags: [AtCoder, 数学, 容斥原理, 第二类斯特林数]
 mathjax: true
 ---
