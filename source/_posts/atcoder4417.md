@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-12-15
-title: "[AtCoder4417][JAGSC2018Day2K]Short LIS 题解"
+title: "[AtCoder4417][JAGSC2018]Short LIS 题解"
 categories: 
 - [OI, 思维]
 - [OI, 数学]
