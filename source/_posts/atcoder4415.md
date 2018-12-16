@@ -14,10 +14,10 @@ You are given an integer sequence $a_0,a_1,…,a_{N−1}$.
 
 You have to perform $Q$ queries, each query is one of the following:
 
-- ```ADD QUERY(t=0 l r x)``` : for each $i$ between $l$ and $r$, inclusive, replace $a_i$ with $a_i+x$.
-- ```DIV QUERY(t=1 l r x)``` : for each i between $l$ and $r$, inclusive, replace ai with $floor(a_i⁄x)$, where $floor(y)$ is the biggest integer that is not greater than $y$.
-- ```MAX QUERY(t=2 l r x=0)``` : print $max(a_l,a_{l+1},…,a_r)$.
-- ```RESTORE QUERY(t=3 l r x=0)``` : for each $i$ between $l$ and $r$, inclusive, set $a_i$ to the initial value of $a_i$, that is, the value given in the input.
+- `ADD QUERY(t=0 l r x)` : for each $i$ between $l$ and $r$, inclusive, replace $a_i$ with $a_i+x$.
+- `DIV QUERY(t=1 l r x)` : for each i between $l$ and $r$, inclusive, replace ai with $floor(a_i⁄x)$, where $floor(y)$ is the biggest integer that is not greater than $y$.
+- `MAX QUERY(t=2 l r x=0)` : print $max(a_l,a_{l+1},…,a_r)$.
+- `RESTORE QUERY(t=3 l r x=0)` : for each $i$ between $l$ and $r$, inclusive, set $a_i$ to the initial value of $a_i$, that is, the value given in the input.
 
 <!-- more -->
 
