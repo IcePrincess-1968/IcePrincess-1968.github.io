@@ -1,61 +1,65 @@
 ---
 layout: post
 date: 2018-12-19
-title: "[AtCoder Grand Contest 029A]Irreversible operation 题解"
+title: "[AtCoder Grand Contest 029B]Powers of Two 题解"
 categories:
-- [OI, 思维]
-tags: [AtCoder, 思维]
+- [OI, 贪心]
+tags: [AtCoder, 贪心]
 mathjax: true
 ---
 
 ## Problem Statement
 
-There are $N$ Reversi pieces arranged in a row. (A *Reversi piece* is a disc with a black side and a white side.) The state of each piece is represented by a string $S$ of length $N$. If $S_i=$'`B`', the $i$-th piece from the left isshowing black; If $S_i=$'`W`', the $i$-th piece from the left is showing white.
+Takahashi has $N$ balls with positive integers written on them. The integer written on the $i$-th ball is $A_i$. He would like to form some number of pairs such that the sum of the integers written on each pair of balls is a power of $2$. Note that a ball cannot belong to multiple pairs. Find the maximum possible number of pairs that can be formed.
+
+Here, a positive integer is said to be a power of $2$ when it can be written as $2^t$ using some non-negative integer $t$.
 
 <!-- more -->
 
-Consider performing the following operation:
-
-- Choose $i$ $(1\leq i<N)$ such that the $i$-th piece from the left is showing black and the $(i+1)$-th piece from the left is showing white, then flip both of those pieces. That is, the $i$-th piece from the left is now showing white and the $(i+1)$-th piece from the left is now showing black.
-
-Find the maximum possible number of times this operation can be performed.
-
 ## Constraints
-- $1\leq \mid S\mid \leq 2\times 10^5$
 
-- $S_i=$'`B`' or '`W`'
+- $1\leq N\leq 2\times 10^5$
+
+- $1\leq A_i\leq 10^9$
+
+- $A_i$ is an integer.
 
 ## Input
+
 Input is given from Standard Input in the following format:
-    
-    S
+
+    N
+    A1 A2 ... An
 
 ## Output
 
-Print the maximum possible number of times the operation can be performed.
+Print the maximum possible number of pairs such that the sum of the integers written on each pair of balls is a power of $2$.
 
 ## Sample Input 1 
-    BBW
+    3
+    1 2 3
 
 ## Sample Output 1 
-    2
-The operation can be performed twice, as follows:
-- Flip the second and third pieces from the left.
-- Flip the first and second pieces from the left.
+    1
+
+We can form one pair whose sum of the written numbers is $4$ by pairing the first and third balls. Note that we cannot pair the second ball with itself.
 
 ## Sample Input 2 
-    BWBWBW
+    5
+    3 11 14 5 13
 
 ## Sample Output 2 
-    6
+    2
 
 ## Solution
 
-我们尝试考虑当没有操作能做的时候，整个序列长什么样子。我们发现一定是所有的W在左边，所有的R在右边，否则一定会出现RW的结构。
+个人认为这题甚至比当场的E还难（大雾
 
-接而我们发现每次交换一个RW就将一个在某个W之前的某个R换到后面，也就是说，对于每一个R,它要和它后面的每一个W做一次交换。
+看上去很像一道贪心题，但不知道该怎么做。
 
-于是只要算每个R后面有多少个W即可。或者换一个角度，你可以把R和W想象成1和0,然后类似冒泡排序，需要的就是逆序对个数次交换。
+~~通过奇怪的尝试，发现从大到小给每个数匹配就是对的~~
+
+还是来简单证明一下正确性，尝试考虑这个2的次幂到底提供了什么性质。我们发现，**能与某个数值匹配的所有数值中，只有一个比它小**，所以，我们如果对于所有能匹配的数对，从大的向小的连边，那么会形成一个树的结构。原题即要求我们将这棵树划分成尽量多的不相交的二元组。对于这个问题，还是能比较显然的看出肯定是从叶子开始贪心比较优，也就是把所有的数按从大到小的顺序来匹配。
 
 ## Code
 ```cpp
@@ -151,7 +155,9 @@ template<typename T> inline int quick_pow(int x,T y,int MO) {int res=1;while (y)
 
 const int MAXN=2e5;
 
-char s[MAXN+48];int n;LL ans;
+multiset<int> s;
+
+LL pw[48];int a[MAXN+48];
 
 int main ()
 {
@@ -161,10 +167,27 @@ int main ()
     freopen ("a.out","w",stdout);
     cerr<<"Running..."<<endl;
 #endif
-    io.getstring(s+1);n=strlen(s+1);
-    for (register int i=n,cnt=0;i>=1;i--)
-        if (s[i]=='W') cnt++; else ans+=cnt;
-    io.Print(ans,'\n');
+    int n,x;scanf("%d",&n);
+    for (register int i=1;i<=n;i++) scanf("%d",&x),s.insert(x);int cnt=1;
+    for (multiset<int>::iterator iter=s.begin();iter!=s.end();iter++,cnt++) a[cnt]=(*iter);
+    pw[0]=1;for (register int i=1;i<=41;i++) pw[i]=pw[i-1]+pw[i-1];
+    int ans=0;
+    for (register int i=n;i>=1;i--)
+    {
+        if (s.find(a[i])==s.end()) continue;
+        multiset<int>::iterator iter=s.find(a[i]);s.erase(iter);
+        int pt=31;while (a[i]+a[i]<pw[pt] && pt) pt--;
+        for (register int j=pt;j>=1;j--)
+        {
+            int need=pw[j]-a[i];
+            if (s.find(need)!=s.end())
+            {
+                iter=s.find(need);s.erase(iter);
+                ++ans;break;
+            }
+        }
+    }
+    printf("%d\n",ans);
     io.flush();
 #ifdef LOCAL
     cerr<<"Exec Time: "<<(clock()-TIME)/CLOCKS_PER_SEC<<endl;

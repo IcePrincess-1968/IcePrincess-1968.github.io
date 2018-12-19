@@ -1,61 +1,70 @@
 ---
 layout: post
 date: 2018-12-19
-title: "[AtCoder Grand Contest 029A]Irreversible operation 题解"
+title: "[AtCoder Grand Contest 029C]Lexicographic constraints 题解"
 categories:
 - [OI, 思维]
+- [OI, 常用技术, 二分答案]
 tags: [AtCoder, 思维]
 mathjax: true
 ---
 
 ## Problem Statement
+There are $N$ strings arranged in a row. It is known that, for any two adjacent strings, the string to the left is lexicographically smaller than the string to the right. That is, $S_1<S_2<...<S_N$ holds lexicographically, where $S_i$ is the $i$-th string from the left.
 
-There are $N$ Reversi pieces arranged in a row. (A *Reversi piece* is a disc with a black side and a white side.) The state of each piece is represented by a string $S$ of length $N$. If $S_i=$'`B`', the $i$-th piece from the left isshowing black; If $S_i=$'`W`', the $i$-th piece from the left is showing white.
+At least how many different characters are contained in $S_1,S_2,...,S_N$, if the length of $S_i$ is known to be $A_i$?
 
 <!-- more -->
 
-Consider performing the following operation:
-
-- Choose $i$ $(1\leq i<N)$ such that the $i$-th piece from the left is showing black and the $(i+1)$-th piece from the left is showing white, then flip both of those pieces. That is, the $i$-th piece from the left is now showing white and the $(i+1)$-th piece from the left is now showing black.
-
-Find the maximum possible number of times this operation can be performed.
-
 ## Constraints
-- $1\leq \mid S\mid \leq 2\times 10^5$
 
-- $S_i=$'`B`' or '`W`'
+- $1\leq N\leq 2\times 10^5$
+
+- $1\leq A_i\leq 10^9$
+
+- $A_i$ is an integer.
+
+## Note
+
+The strings do not necessarily consist of English alphabet; there can be arbitrarily many different characters (and the lexicographic order is defined for those characters).
 
 ## Input
+
 Input is given from Standard Input in the following format:
-    
-    S
+
+    N
+    A1 A2 .. An
 
 ## Output
 
-Print the maximum possible number of times the operation can be performed.
+Print the minimum possible number of different characters contained in the strings.
 
 ## Sample Input 1 
-    BBW
+    3
+    3 2 1
 
 ## Sample Output 1 
     2
-The operation can be performed twice, as follows:
-- Flip the second and third pieces from the left.
-- Flip the first and second pieces from the left.
+
+The number of different characters contained in $S_1,S_2,...,S_N$ would be $3$ when, for example, $S_1=$'`abc`',$S_2=$'`bb`' and $S_3=$'`c`'.
+
+However, if we choose the strings properly, the number of different characters can be 
+$2$.
 
 ## Sample Input 2 
-    BWBWBW
+    5
+    2 3 2 1 2
 
 ## Sample Output 2 
-    6
+    2
 
-## Solution
+## Solutions
 
-我们尝试考虑当没有操作能做的时候，整个序列长什么样子。我们发现一定是所有的W在左边，所有的R在右边，否则一定会出现RW的结构。
+显然答案具有单调性，考虑二分答案。
 
-接而我们发现每次交换一个RW就将一个在某个W之前的某个R换到后面，也就是说，对于每一个R,它要和它后面的每一个W做一次交换。
+接下来是怎么check，我们的目标是尽可能最小化每个串的字典序。每次考虑相邻的两个字符串，如果后一个比前一个长，那么只要copy前一个串并在后面添上一串最小字符即可。如果后一个比前一个短，那么就要将前一个长出来的部分先截掉copy过来，然后使得最后一个字符比上一个大一。那么如果上一个的最后字符已经是最大字符了呢？那么就使得倒数第二个字符大一，最后一个字符设为最小字符，以此类推。可以发现这个很像加法的进位。如果某一次进位的时候，我们“加爆了”，就是首位也要进位，那么说明答案不合法，要寻求更大的答案，否则就可以尝试更小的答案。
 
-于是只要算每个R后面有多少个W即可。或者换一个角度，你可以把R和W想象成1和0,然后类似冒泡排序，需要的就是逆序对个数次交换。
+分析复杂度。如果我们暴力的维护进位的话，均摊到每次只会进位$O(1)$次，复杂度可以保证。因为数位个数可能达到1e9个而可能产生的进位数量是1e5级别，所以可以用map来维护当前有进位的那些位。加上二分答案的一个log,总时间复杂度$O(nlog^2n)$。
 
 ## Code
 ```cpp
@@ -151,7 +160,33 @@ template<typename T> inline int quick_pow(int x,T y,int MO) {int res=1;while (y)
 
 const int MAXN=2e5;
 
-char s[MAXN+48];int n;LL ans;
+int n,a[MAXN+48];
+map<int,int> cur;int maxbit;
+
+inline bool addone(int pt,int N)
+{
+    while (pt<=maxbit && cur[pt]==N-1) cur[pt]=0,pt++;
+    if (pt>maxbit) return false;
+    cur[pt]++;return true;
+}
+
+inline bool check(int N)
+{
+    cur.clear();
+    if (N==1)
+    {
+        for (register int i=2;i<=n;i++) if (a[i]<=a[i-1]) return false;
+        return true;
+    }
+    for (register int i=2;i<=n;i++)
+    {
+        if (a[i]>a[i-1]) continue;
+        int low=maxbit-a[i]+1;
+        while (!cur.empty() && cur.begin()->x<low) cur.erase(cur.begin());
+        bool sta=addone(low,N);if (!sta) return false;
+    }
+    return true;
+}
 
 int main ()
 {
@@ -161,10 +196,14 @@ int main ()
     freopen ("a.out","w",stdout);
     cerr<<"Running..."<<endl;
 #endif
-    io.getstring(s+1);n=strlen(s+1);
-    for (register int i=n,cnt=0;i>=1;i--)
-        if (s[i]=='W') cnt++; else ans+=cnt;
-    io.Print(ans,'\n');
+    scanf("%d",&n);for (register int i=1;i<=n;i++) scanf("%d",a+i),check_max(maxbit,a[i]);
+    int l=1,r=n,mid,ans;
+    while (l<=r)
+    {
+        mid=(l+r)>>1;
+        if (check(mid)) ans=mid,r=mid-1; else l=mid+1;
+    }
+    printf("%d\n",ans);
     io.flush();
 #ifdef LOCAL
     cerr<<"Exec Time: "<<(clock()-TIME)/CLOCKS_PER_SEC<<endl;

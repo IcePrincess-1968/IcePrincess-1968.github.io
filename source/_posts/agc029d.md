@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2018-12-19
-title: "[AtCoder Grand Contest 029A]Irreversible operation 题解"
+title: "[AtCoder Grand Contest 029D]Grid game 题解"
 categories:
 - [OI, 思维]
 tags: [AtCoder, 思维]
@@ -10,52 +10,96 @@ mathjax: true
 
 ## Problem Statement
 
-There are $N$ Reversi pieces arranged in a row. (A *Reversi piece* is a disc with a black side and a white side.) The state of each piece is represented by a string $S$ of length $N$. If $S_i=$'`B`', the $i$-th piece from the left isshowing black; If $S_i=$'`W`', the $i$-th piece from the left is showing white.
+Takahashi and Aoki will play a game using a grid with $H$ rows and $W$ columns of square cells. There are $N$ obstacles on this grid; the $i$-th obstacle is at $(X_i,Y_i)$. Here, we represent the cell at the $i$-th row and $j$-th column $(1\leq i\leq H,1\leq j\leq W)$ by$(i,j)$ . There is no obstacle at $(1,1)$, and there is a piece placed there at $(1,1)$.
 
 <!-- more -->
 
-Consider performing the following operation:
+Starting from Takahashi, he and Aoki alternately perform one of the following actions:
 
-- Choose $i$ $(1\leq i<N)$ such that the $i$-th piece from the left is showing black and the $(i+1)$-th piece from the left is showing white, then flip both of those pieces. That is, the $i$-th piece from the left is now showing white and the $(i+1)$-th piece from the left is now showing black.
+- Move the piece to an adjacent cell. Here, let the position of the piece be $(x,y)$. Then Takahashi can only move the piece to $(x+1,y)$, and Aoki can only move the piece to $(x,y+1)$. If the destination cell does not exist or it is occupied by an obstacle, this action cannot be taken.
+- Do not move the piece, and end his turn without affecting the grid.
 
-Find the maximum possible number of times this operation can be performed.
+The game ends when the piece does not move twice in a row.
+
+Takahashi would like to perform as many actions (including not moving the piece) as possible before the game ends, while Aoki would like to perform as few actions as possible before the game ends. How many actions will Takahashi end up performing?
 
 ## Constraints
-- $1\leq \mid S\mid \leq 2\times 10^5$
 
-- $S_i=$'`B`' or '`W`'
+- $1\leq H,W\leq 2\times 10^5$
+- $0\leq N\leq 2\times 10^5$
+- $1\leq X_i\leq H$
+- $1\leq Y_i\leq W$
+- if $i\neq j,(X_i,Y_i)\neq (X_j,Y_j)$
+- $(X_i,Y_i)\neq (1,1)$
+- $X_i$ and $Y_i$ are integers.
 
 ## Input
+
 Input is given from Standard Input in the following format:
-    
-    S
+
+    H W N
+    X1 Y1
+    .
+    .
+    .
+    Xn Yn
 
 ## Output
 
-Print the maximum possible number of times the operation can be performed.
+Print the number of actions Takahashi will end up performing.
 
 ## Sample Input 1 
-    BBW
+    3 3 1
+    3 2
 
 ## Sample Output 1 
     2
-The operation can be performed twice, as follows:
-- Flip the second and third pieces from the left.
-- Flip the first and second pieces from the left.
+
+For example, the game proceeds as follows:
+
+- Takahashi moves the piece to $(2,1)$.
+- Aoki does not move the piece.
+- Takahashi moves the piece to $(3,1)$.
+- Aoki does not move the piece.
+- Takahashi does not move the piece.
+
+Takahashi performs three actions in this case, but if both players play optimally, Takahashi will perform only two actions before the game ends.
 
 ## Sample Input 2 
-    BWBWBW
+    10 10 14
+    4 3
+    2 2
+    7 3
+    9 10
+    7 7
+    8 1
+    10 10
+    5 4
+    3 4
+    2 8
+    6 4
+    4 4
+    5 8
+    9 2
 
 ## Sample Output 2 
     6
 
+## Sample Input 3 
+    100000 100000 0
+
+## Sample Output 3 
+    100000
+
 ## Solution
 
-我们尝试考虑当没有操作能做的时候，整个序列长什么样子。我们发现一定是所有的W在左边，所有的R在右边，否则一定会出现RW的结构。
+感觉这题放D有点水了。
 
-接而我们发现每次交换一个RW就将一个在某个W之前的某个R换到后面，也就是说，对于每一个R,它要和它后面的每一个W做一次交换。
+首先一个显然的性质是只要A还有路可走，他就一定会把棋子向下移，否则只要B也停下来游戏就玩完了。
 
-于是只要算每个R后面有多少个W即可。或者换一个角度，你可以把R和W想象成1和0,然后类似冒泡排序，需要的就是逆序对个数次交换。
+那么B就有选择是否在当前这一列结束游戏的权利。
+
+直接模拟移动的过程，如果选择在当前列结束，就找一下这一列当前点下方最靠上的障碍物（包括地图的下边界）算一下步数，否则如果可以向右走的话就向右走。
 
 ## Code
 ```cpp
@@ -151,7 +195,9 @@ template<typename T> inline int quick_pow(int x,T y,int MO) {int res=1;while (y)
 
 const int MAXN=2e5;
 
-char s[MAXN+48];int n;LL ans;
+int h,w,n;
+vector<int> v[MAXN+48];int pt[MAXN+48];
+map<Pair,int> Mp;
 
 int main ()
 {
@@ -161,10 +207,21 @@ int main ()
     freopen ("a.out","w",stdout);
     cerr<<"Running..."<<endl;
 #endif
-    io.getstring(s+1);n=strlen(s+1);
-    for (register int i=n,cnt=0;i>=1;i--)
-        if (s[i]=='W') cnt++; else ans+=cnt;
-    io.Print(ans,'\n');
+    scanf("%d%d%d",&h,&w,&n);int ans=h,x,y;
+    for (register int i=1;i<=n;i++) scanf("%d%d",&x,&y),v[y].pb(x),Mp[mp(x,y)]=1;
+    for (register int i=1;i<=w;i++) sort(v[i].begin(),v[i].end()),pt[i]=0;
+    x=1;y=1;int cnt=0;
+    for (;;)
+    {
+        // cerr<<"*"<<x<<' '<<y<<' '<<cnt<<endl;
+        while (pt[y]<=int(v[y].size())-1 && v[y][pt[y]]<x) pt[y]++;
+        int lim=(pt[y]<=int(v[y].size())-1)?v[y][pt[y]]:h+1;
+        check_min(ans,cnt+lim-x);
+        if (lim==x+1) break;if (y==w) break;
+        ++x;++cnt;
+        if (Mp.find(mp(x,y+1))==Mp.end()) ++y;
+    }
+    printf("%d\n",ans);
     io.flush();
 #ifdef LOCAL
     cerr<<"Exec Time: "<<(clock()-TIME)/CLOCKS_PER_SEC<<endl;
