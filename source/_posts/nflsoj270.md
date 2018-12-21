@@ -29,7 +29,7 @@ mathjax: true
 接下来一行，$n−1$ 个整数，第 $i$ 个数为 $p′_{i+1}$。$p_{i+1}=p′_{i+1}\times 10^{−6}$ ,代表留在原地的概率。
 
 ## Output Format
-输出 $n−1$ 行，第 $i$ 个输出表示从 $i+1$ 号点出发直至停下，所花费的时间的 $k 次方的期望。
+输出 $n−1$ 行，第 $i$ 个输出表示从 $i+1$ 号点出发直至停下，所花费的时间的 $k$ 次方的期望。
 
 ## Constraints
 
@@ -106,11 +106,11 @@ $$f_{u,i}=\frac{\sum_{v\in son_u}(k_vf_{u,i}+b_v)}{deg_u}+\frac{f_{fa_u,i}}{deg_
 
 $$(1-\frac{\sum_{v\in son_u}k_v}{deg_u})f_{u,i}=\frac{f_{fa_u,i}}{deg_u}+g_{u,i}+\frac{\sum_{v\in son_u}b_v}{deg_u}$$
 
-$$f_{u,i}=\frac{1}{deg_u-\sum_{v\in son_u}k_v}f_{fa_u,i}+\frac{\sum_{v\in son_u}b_v}{deg_u-\sum_{v\in son_u}k_v}+g_{u,i}$$
+$$f_{u,i}=\frac{1}{deg_u-\sum_{v\in son_u}k_v}f_{fa_u,i}+\frac{\sum_{v\in son_u}b_v+deg_ug_{u,i}}{deg_u-\sum_{v\in son_u}k_v}$$
 
 所以
 $$ k_u = \frac{1}{deg_u-\sum_{v\in son_u}k_v}$$
-$$ b_u = \frac{\sum_{v\in son_u}b_v}{deg_u-\sum_{v\in son_u}k_v}+g_{u,i}$$ 
+$$ b_u = \frac{\sum_{v\in son_u}b_v+deg_ug_{u,i}}{deg_u-\sum_{v\in son_u}k_v}$$ 
 
 这样只要从下到上算一遍$k_u$和$b_u$，再根据$f_{root,i}=0$从上到下推一遍就解出了所有的未知数。
 
