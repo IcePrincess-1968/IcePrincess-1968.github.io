@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="IcePrincess_1968">
 <meta property="og:description" content="Description有一棵 $n$ 个节点的树，你将从任意一个点出发开始随机游走。具体来说，在点 $u$ 的每个单位时间内，你将会有 $p_u$ 的概率留在原地，有 $1−p_u$ 的概率等概率的向相邻的点移动，直到移动到 $1$ 号点才停下。 现在询问从每个点出发直至停下，所花费的时间的 $k$ 次方的期望。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-12T02:03:07.962Z">
+<meta property="og:updated_time" content="2018-12-21T13:40:32.684Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[NFLSoj #270][六校联合训练 #9]菊凯的疑惑 题解">
 <meta name="twitter:description" content="Description有一棵 $n$ 个节点的树，你将从任意一个点出发开始随机游走。具体来说，在点 $u$ 的每个单位时间内，你将会有 $p_u$ 的概率留在原地，有 $1−p_u$ 的概率等概率的向相邻的点移动，直到移动到 $1$ 号点才停下。 现在询问从每个点出发直至停下，所花费的时间的 $k$ 次方的期望。">
@@ -417,7 +417,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-12 10:03:07" itemprop="dateModified" datetime="2018-11-12T10:03:07+08:00">2018-11-12</time>
+                <time title="修改时间：2018-12-21 21:40:32" itemprop="dateModified" datetime="2018-12-21T21:40:32+08:00">2018-12-21</time>
               
             
           </span>
@@ -570,7 +570,7 @@
 <h2 id="Input-Format"><a href="#Input-Format" class="headerlink" title="Input Format"></a>Input Format</h2><p>第一行两个整数 $n$ 和 $k$，含义如题目所示。</p>
 <p>接下来 $n−1$ 行，每行两个整数 $u$,$v$,代表一条树边。</p>
 <p>接下来一行，$n−1$ 个整数，第 $i$ 个数为 $p′<em>{i+1}$。$p</em>{i+1}=p′_{i+1}\times 10^{−6}$ ,代表留在原地的概率。</p>
-<h2 id="Output-Format"><a href="#Output-Format" class="headerlink" title="Output Format"></a>Output Format</h2><p>输出 $n−1$ 行，第 $i$ 个输出表示从 $i+1$ 号点出发直至停下，所花费的时间的 $k 次方的期望。</p>
+<h2 id="Output-Format"><a href="#Output-Format" class="headerlink" title="Output Format"></a>Output Format</h2><p>输出 $n−1$ 行，第 $i$ 个输出表示从 $i+1$ 号点出发直至停下，所花费的时间的 $k$ 次方的期望。</p>
 <h2 id="Constraints"><a href="#Constraints" class="headerlink" title="Constraints"></a>Constraints</h2><ul>
 <li><p>对于 15% 的数据，n,k≤10。</p>
 </li>
@@ -612,8 +612,8 @@
 <p>稍微想一下可以知道，所有的叶节点是没有儿子的，所以它们的$f$值只和父亲相关，倒数第二层的节点，它们的孩子都是叶子节点，可以用它们自己来表示，所以它们也只和父亲相关……依次类推，每个节点的$f$值都是关于父亲的$f$值的一次函数，设$f_{u,i}=k_uf_{fa_u,i}+b_u$，我们要推出$k_u$和$b_u$的表达式。</p>
 <p>对于上式，我们把所有的$f_{v,i}$换成$k_vf_{u,i}+b_v$,有<br>$$f_{u,i}=\frac{\sum_{v\in son_u}(k_vf_{u,i}+b_v)}{deg_u}+\frac{f_{fa_u,i}}{deg_u}+g_{u,i}$$</p>
 <p>$$(1-\frac{\sum_{v\in son_u}k_v}{deg_u})f_{u,i}=\frac{f_{fa_u,i}}{deg_u}+g_{u,i}+\frac{\sum_{v\in son_u}b_v}{deg_u}$$</p>
-<p>$$f_{u,i}=\frac{1}{deg_u-\sum_{v\in son_u}k_v}f_{fa_u,i}+\frac{\sum_{v\in son_u}b_v}{deg_u-\sum_{v\in son_u}k_v}+g_{u,i}$$</p>
-<p>所以<br>$$ k_u = \frac{1}{deg_u-\sum_{v\in son_u}k_v}$$<br>$$ b_u = \frac{\sum_{v\in son_u}b_v}{deg_u-\sum_{v\in son_u}k_v}+g_{u,i}$$ </p>
+<p>$$f_{u,i}=\frac{1}{deg_u-\sum_{v\in son_u}k_v}f_{fa_u,i}+\frac{\sum_{v\in son_u}b_v+deg_ug_{u,i}}{deg_u-\sum_{v\in son_u}k_v}$$</p>
+<p>所以<br>$$ k_u = \frac{1}{deg_u-\sum_{v\in son_u}k_v}$$<br>$$ b_u = \frac{\sum_{v\in son_u}b_v+deg_ug_{u,i}}{deg_u-\sum_{v\in son_u}k_v}$$ </p>
 <p>这样只要从下到上算一遍$k_u$和$b_u$，再根据$f_{root,i}=0$从上到下推一遍就解出了所有的未知数。</p>
 <p>这样可以得到95分，还有一个问题是暴力推第二类斯特林数是$O(n^2)$的。这里有一个喜闻乐见的多项式做法。</p>
 <p>考虑第二类斯特林数的通项公式:<br>$$S(n,k)=\frac{1}{k!}\sum_{i=0}^k(-1)^i\binom{k}{i}(k-i)^n$$</p>
