@@ -22,14 +22,16 @@ mathjax: true
 <!-- more -->
   
 ## Solution
-
+<details>
+<summary>Click to view the solution</summary>
 我们认为，每两个相邻的黑格子中间都有一条边。刚开始每个黑格子自成一个联通块。这样我们每多选一条边，相当于少了一个联通块，从而答案减一，所以我们的目标是选择尽可能多的边。
 
 接下来考虑这题的限制，即选择的区域是不能“拐弯”的。这相当于限制了某个黑点四周的四条边中，横边和竖边不能同时选。我们把横边和竖边看成一个二分图，横边对应的点都在左边，竖边对应的点都在右边。我们在那些不能同时选的边对应的点之间连边，这样就转化成了二分图的最大独立集问题，网络流解决即可。
+</details>
 
 ## Code
 <details>
-<summary>点击展开代码</summary>
+<summary>Click to view the code</summary>
 ```cpp
 #include <bits/stdc++.h>
 using namespace std;
