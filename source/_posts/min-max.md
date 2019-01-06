@@ -1,9 +1,9 @@
 ---
 layout: post
 date: 2018-11-19
-title: "Min-Max容斥"
+title: "[学习笔记]Min-Max容斥"
 categories: [OI, 数学, 容斥原理, Min-Max容斥]
-tags: [讲稿, Min-Max容斥, 数学]
+tags: [学习笔记, Min-Max容斥, 数学]
 mathjax: true
 ---
 

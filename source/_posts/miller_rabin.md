@@ -1,9 +1,9 @@
 ---
 layout: post
 date: 2018-8-24
-title: "Miller_Rabin强伪素性测试"
+title: "[学习笔记]Miller_Rabin强伪素性测试"
 categories: [OI, 数学, Miller_Rabin强伪素性测试]
-tags: [讲稿, 数学, Miller_Rabin强伪素性测试]
+tags: [学习笔记, 数学, Miller_Rabin强伪素性测试]
 mathjax: true
 ---
 

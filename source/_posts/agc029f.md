@@ -5,7 +5,7 @@ title: "[AtCoder Grand Contest 029F]Construction of a tree 题解"
 categories:
 - [OI, 思维]
 - [OI, 网络流, 最大流]
-tags: [AtCoder, 最大流, 思维]
+tags: [AtCoder, 网络流, 最大流, 思维]
 mathjax: true
 ---
 
