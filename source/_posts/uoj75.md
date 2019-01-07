@@ -15,9 +15,9 @@ mathjax: true
 ---
 
 ## Original Description
-- [Click to Open](http://uoj.ac/problem/75)
+- [Click to open](http://uoj.ac/problem/75)
 
-## Summarization
+## Summary
 - $t$组询问,每次询问一个数$k$，要求构造一个点数不超过$100$的图，使得其生成树个数模$998244353$等于$k$。
 - $t\leq 10$，$0\leq k\leq 998244352$。
 

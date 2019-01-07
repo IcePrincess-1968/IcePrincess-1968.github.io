@@ -11,9 +11,9 @@ mathjax: true
 
 ## Original Description
 
-- <a href="https://community.topcoder.com/stat?c=problem_statement&pm=12418">Click to Open</a>
+- <a href="https://community.topcoder.com/stat?c=problem_statement&pm=12418">Click to open</a>
 
-## Summarization
+## Summary
 
 - 给定一个$n\times m$的棋盘，有的格子是黑的有的格子是白的。要求每次选择一个横着的区间或者一个竖着的区间去覆盖，最终要求每个黑格子恰好被覆盖一次且白格子不能被覆盖。求最少选择多少个区间。
 

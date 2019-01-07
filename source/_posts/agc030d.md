@@ -8,9 +8,9 @@ mathjax: true
 ---
 
 ## Original Description
-- [Click to Open](https://agc030.contest.atcoder.jp/tasks/agc030_d)
+- [Click to open](https://agc030.contest.atcoder.jp/tasks/agc030_d)
 
-## Summarization
+## Summary
 
 - 给定一个数列$A_n$,有$q$次操作，第$i$次操作可以选择交换或不交换$A_{X_i}$和$A_{Y_i}$。问所有的$2^q$种操作方法得到的序列的逆序对个数之和是多少。
 - $n,q\leq 3000$
