@@ -109,14 +109,14 @@
 
 
   <meta name="description" content="DescriptionIt is the year 2969. 1000 years have passed from the moon landing. Meanwhile, the humanity colonized the Hyperspace™ and lived in harmony. Until we realized that we were not alone. Not too">
-<meta name="keywords" content="Codeforces,贪心,线段树,最大流">
+<meta name="keywords" content="Codeforces,贪心,线段树,最大流,网络流">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Codeforces #1045A]Last Chance 题解">
 <meta property="og:url" content="http://yoursite.com/blog/cf1045a/index.html">
 <meta property="og:site_name" content="IcePrincess_1968">
 <meta property="og:description" content="DescriptionIt is the year 2969. 1000 years have passed from the moon landing. Meanwhile, the humanity colonized the Hyperspace™ and lived in harmony. Until we realized that we were not alone. Not too">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-12T01:17:18.344Z">
+<meta property="og:updated_time" content="2019-01-07T03:26:15.543Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Codeforces #1045A]Last Chance 题解">
 <meta name="twitter:description" content="DescriptionIt is the year 2969. 1000 years have passed from the moon landing. Meanwhile, the humanity colonized the Hyperspace™ and lived in harmony. Until we realized that we were not alone. Not too">
@@ -417,7 +417,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-12 09:17:18" itemprop="dateModified" datetime="2018-11-12T09:17:18+08:00">2018-11-12</time>
+                <time title="修改时间：2019-01-07 11:26:15" itemprop="dateModified" datetime="2019-01-07T11:26:15+08:00">2019-01-07</time>
               
             
           </span>
@@ -540,9 +540,18 @@
 <p>In the next N lines, each line starts with one integer that represents type (either 0, 1 or 2). If the type is 0, then the weapon is SQL rocket, the rest of the line contains strictly positive number K(∑K≤100000) and array ki (1≤ki≤M) of K integers. If the type is 1, then the weapon is Cognition beam, the rest of the line contains integers l and r(1≤l≤r≤M). If the type is 2 then the weapon is OMG bazooka, the rest of the line contains distinct numbers a, b and c (1≤a,b,c≤M).</p>
 <h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>The first line should contain the maximum number of destroyed spaceships —<br>X.</p>
 <p>In the next X lines, every line should contain two numbers A and B, where A is an index of the weapon and B is an index of the spaceship which was destroyed by the weapon A.</p>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>input<br>3 5<br>0 1 4<br>2 5 4 1<br>1 1 4</p>
-<p>output<br>4<br>2 1<br>3 2<br>1 4<br>2 5</p>
-<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><p>SQL rocket can destroy only 4th spaceship. OMG Bazooka can destroy two of 1st, 4th or 5th spaceship, and Cognition beam can destroy any spaceship from the interval [1,4]. The maximum number of destroyed spaceship is 4, and one possible plan is that SQL rocket should destroy 4th spaceship, OMG bazooka should destroy 1st and 5th spaceship and Cognition beam should destroy 2nd spaceship.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>input</p>
+<pre><code>3 5
+0 1 4
+2 5 4 1
+1 1 4
+</code></pre><p>output</p>
+<pre><code>4
+2 1
+3 2
+1 4
+2 5
+</code></pre><h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><p>SQL rocket can destroy only 4th spaceship. OMG Bazooka can destroy two of 1st, 4th or 5th spaceship, and Cognition beam can destroy any spaceship from the interval [1,4]. The maximum number of destroyed spaceship is 4, and one possible plan is that SQL rocket should destroy 4th spaceship, OMG bazooka should destroy 1st and 5th spaceship and Cognition beam should destroy 2nd spaceship.</p>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>这题的宗旨是你要相信$1e5$的网络流是能跑的，然后你就真的过了（大雾</p>
 <p>网络流的模型还是很显然的，考虑对每种武器建一个点，超级源点向这些点连流量为$1$的边（对于第三种武器，连流量为2的边），每个目标建一个点，这些点向超级汇点连流量为$1$的边</p>
 <p>考虑三种武器怎么建：</p>
@@ -583,6 +592,8 @@
             <a href="/tags/线段树/" rel="tag"># 线段树</a>
           
             <a href="/tags/最大流/" rel="tag"># 最大流</a>
+          
+            <a href="/tags/网络流/" rel="tag"># 网络流</a>
           
         </div>
       
@@ -685,7 +696,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">63</span>
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -838,7 +849,17 @@
                     
                       
                     
-                    <span class="site-state-item-count">68</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">73</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1007,7 +1028,21 @@
                     
                       
                     
-                    <span class="site-state-item-count">77</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">83</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
