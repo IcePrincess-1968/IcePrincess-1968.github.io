@@ -7,7 +7,7 @@ categories:
 - [OI, 常用技术, 分治]
 - [OI, 图论, dfs树]
 - [OI, 图论, Tarjan求边双联通分量]
-- [OI, 常用技术, 树链剖分]
+- [OI, 常用技术, 树链剖分, 重链剖分]
 tags: [Codeforces, 可撤销并查集, 分治, dfs树, Tarjan求边双联通分量, 树链剖分]
 mathjax: true
 ---
