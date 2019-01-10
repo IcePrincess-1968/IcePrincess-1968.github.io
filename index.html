@@ -354,7 +354,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/uoj33/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/ccJUMP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="IcePrincess_1968">
@@ -373,8 +373,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/uoj33/" itemprop="url">
-                  [UOJ #33][UR #2]树上GCD 题解
+                <a class="post-title-link" href="/blog/ccJUMP/" itemprop="url">
+                  [CodeChef JUMP]Jump Mission 题解
                 </a>
               
             
@@ -400,7 +400,7 @@
                 
               
 
-              <time title="创建时间：2019-01-09 00:00:00 / 修改时间：16:03:26" itemprop="dateCreated datePublished" datetime="2019-01-09T00:00:00+08:00">2019-01-09</time>
+              <time title="创建时间：2019-01-10 00:00:00 / 修改时间：13:10:11" itemprop="dateCreated datePublished" datetime="2019-01-10T00:00:00+08:00">2019-01-10</time>
             
 
             
@@ -436,35 +436,35 @@
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数学/" itemprop="url" rel="index"><span itemprop="name">数学</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/Dynamic-Programming/" itemprop="url" rel="index"><span itemprop="name">Dynamic Programming</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数学/莫比乌斯反演/" itemprop="url" rel="index"><span itemprop="name">莫比乌斯反演</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/分块/" itemprop="url" rel="index"><span itemprop="name">分块</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/cdq分治/" itemprop="url" rel="index"><span itemprop="name">cdq分治</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/树链剖分/" itemprop="url" rel="index"><span itemprop="name">树链剖分</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数据结构/线段树/" itemprop="url" rel="index"><span itemprop="name">线段树</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/树链剖分/长链剖分/" itemprop="url" rel="index"><span itemprop="name">长链剖分</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数据结构/线段树/李超树/" itemprop="url" rel="index"><span itemprop="name">李超树</span></a></span>
 
                 
                 
@@ -500,15 +500,218 @@
       
         
           <h2 id="Original-Description"><a href="#Original-Description" class="headerlink" title="Original Description"></a>Original Description</h2><ul>
-<li><a href="http://uoj.ac/problem/33" target="_blank" rel="noopener">Click to open</a></li>
+<li><a href="https://www.codechef.com/OCT15/problems/JUMP" target="_blank" rel="noopener">Click to open</a></li>
 </ul>
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
-<li>给定一棵$n$个点的数，定义$d(u,v)$表示树上点$u$到点$v$的距离。定义$f(u,v)=\operatorname{gcd}(d(u,lca_{u,v}),d(v,lca_{u,v}))$。对于所有的$i\in { 1,2… n-1}$，求出有多少对$u,v(u&lt;v)$满足$f(u,v)=i$。</li>
-<li>$n\leq 200000$</li>
+<li>有$n$座山峰，第$i$座山峰高度为$H_i$，有两个属性值$P_i,A_i$。一个人初始在$1$号山峰，要到$n$号山峰。一个人能从$i$号山峰跳到$j$号山峰当且仅当$i&lt;j$且$P_i&lt;P_j$，要花费$(H_i-H_j)^2$的代价。每到一座山峰$i$(包括$1$号山峰)，这个人都要额外花费$A_i$的代价。问这个人最少需要多少花费。</li>
+<li>$n\leq 300000,H_i\leq 600000$，$P_i$是一个$1$到$n$的排列。</li>
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/blog/uoj33/#more" rel="contents">
+            <a class="btn" href="/blog/ccJUMP/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/uoj388/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="IcePrincess_1968">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IcePrincess_1968">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/uoj388/" itemprop="url">
+                  [UOJ #388][UNR #3]配对树 题解
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-09 00:00:00 / 修改时间：16:03:29" itemprop="dateCreated datePublished" datetime="2019-01-09T00:00:00+08:00">2019-01-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/" itemprop="url" rel="index"><span itemprop="name">常用技术</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/思维/" itemprop="url" rel="index"><span itemprop="name">思维</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数据结构/线段树/" itemprop="url" rel="index"><span itemprop="name">线段树</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/线段树合并/" itemprop="url" rel="index"><span itemprop="name">线段树合并</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Original-Description"><a href="#Original-Description" class="headerlink" title="Original Description"></a>Original Description</h2><ul>
+<li><a href="http://uoj.ac/problem/388" target="_blank" rel="noopener">Click to open</a></li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>给定一个长度为$m$的每个元素在$[1,n]$的数列和一棵$n$的点的树。对于序列的每一个偶数长度的区间，在树上将这些点两两匹配，定义代价为每对点的距离之和。求所有区间的最小代价之和模$998244353$。</li>
+<li>$n,m\leq 100000$</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/blog/uoj388/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -746,7 +949,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/uoj388/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/uoj33/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="IcePrincess_1968">
@@ -765,8 +968,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/uoj388/" itemprop="url">
-                  [UOJ #388][UNR #3]配对树 题解
+                <a class="post-title-link" href="/blog/uoj33/" itemprop="url">
+                  [UOJ #33][UR #2]树上GCD 题解
                 </a>
               
             
@@ -792,7 +995,7 @@
                 
               
 
-              <time title="创建时间：2019-01-09 00:00:00 / 修改时间：16:03:29" itemprop="dateCreated datePublished" datetime="2019-01-09T00:00:00+08:00">2019-01-09</time>
+              <time title="创建时间：2019-01-09 00:00:00 / 修改时间：16:03:26" itemprop="dateCreated datePublished" datetime="2019-01-09T00:00:00+08:00">2019-01-09</time>
             
 
             
@@ -828,28 +1031,35 @@
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/思维/" itemprop="url" rel="index"><span itemprop="name">思维</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数学/" itemprop="url" rel="index"><span itemprop="name">数学</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数学/莫比乌斯反演/" itemprop="url" rel="index"><span itemprop="name">莫比乌斯反演</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数据结构/线段树/" itemprop="url" rel="index"><span itemprop="name">线段树</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/分块/" itemprop="url" rel="index"><span itemprop="name">分块</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/线段树合并/" itemprop="url" rel="index"><span itemprop="name">线段树合并</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/树链剖分/" itemprop="url" rel="index"><span itemprop="name">树链剖分</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/树链剖分/长链剖分/" itemprop="url" rel="index"><span itemprop="name">长链剖分</span></a></span>
 
                 
                 
@@ -885,15 +1095,15 @@
       
         
           <h2 id="Original-Description"><a href="#Original-Description" class="headerlink" title="Original Description"></a>Original Description</h2><ul>
-<li><a href="http://uoj.ac/problem/388" target="_blank" rel="noopener">Click to open</a></li>
+<li><a href="http://uoj.ac/problem/33" target="_blank" rel="noopener">Click to open</a></li>
 </ul>
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
-<li>给定一个长度为$m$的每个元素在$[1,n]$的数列和一棵$n$的点的树。对于序列的每一个偶数长度的区间，在树上将这些点两两匹配，定义代价为每对点的距离之和。求所有区间的最小代价之和模$998244353$。</li>
-<li>$n,m\leq 100000$</li>
+<li>给定一棵$n$个点的数，定义$d(u,v)$表示树上点$u$到点$v$的距离。定义$f(u,v)=\operatorname{gcd}(d(u,lca_{u,v}),d(v,lca_{u,v}))$。对于所有的$i\in { 1,2… n-1}$，求出有多少对$u,v(u&lt;v)$满足$f(u,v)=i$。</li>
+<li>$n\leq 200000$</li>
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/blog/uoj388/#more" rel="contents">
+            <a class="btn" href="/blog/uoj33/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2158,210 +2368,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/uoj422/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="IcePrincess_1968">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IcePrincess_1968">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/uoj422/" itemprop="url">
-                  [UOJ #422][集训队作业2018]小Z的礼物 题解
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-01-02 00:00:00 / 修改时间：15:03:58" itemprop="dateCreated datePublished" datetime="2019-01-02T00:00:00+08:00">2019-01-02</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/Dynamic-Programming/" itemprop="url" rel="index"><span itemprop="name">Dynamic Programming</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数学/" itemprop="url" rel="index"><span itemprop="name">数学</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数学/容斥原理/" itemprop="url" rel="index"><span itemprop="name">容斥原理</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数学/容斥原理/Min-Max容斥/" itemprop="url" rel="index"><span itemprop="name">Min-Max容斥</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/Dynamic-Programming/状压dp/" itemprop="url" rel="index"><span itemprop="name">状压dp</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/Dynamic-Programming/轮廓线dp/" itemprop="url" rel="index"><span itemprop="name">轮廓线dp</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>小Z有一个神奇的自动售货机，里面有 $n\times m$ 种物品，分别放在 $n$ 行 $m$ 列个格子中。每当小Z向自动售货机中投入一枚硬币，他就能获得一对相邻格子中的物品（已经获得的物品可能再次获得），获得每一对相邻格子中的物品的概率是相等的。在这 $n\times m$ 种物品中，有一些物品是小Z喜欢的（小Z喜欢的用 *[星号] 表示，其他的用 .[英文句号] 表示），他想把这些物品包装成一份礼物。小Z想知道，期望投入多少枚硬币后，就可以获得这些他喜欢的物品。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blog/uoj422/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2409,7 +2415,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">72</span>
+                    <span class="site-state-item-count">73</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2576,7 +2582,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">75</span>
+                      
+                    
+                    <span class="site-state-item-count">76</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2761,7 +2769,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">84</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">86</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
