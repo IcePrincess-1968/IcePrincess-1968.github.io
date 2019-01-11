@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Original Description Click to open  Summary 给定一个长度为$n$的数列，保证数列中所有出现过的不同的数不超过$k$个。有$q$次操作，操作有三种： $[1,i,x]$，将第$i$个位置的数改成$x$。 $[2,l,r]$，翻转$l$到$r$的区间。 $[3,l,r,x]$，问能否从$l$到$r$这个区间内的所有数中选出一些，使得其和为$x$。能的话输出Y">
+<meta name="keywords" content="dp,CodeChef,平衡树,二进制拆分,压位">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[CodeChef MGCHGYM]Misha and Gym 题解">
+<meta property="og:url" content="http://yoursite.com/blog/ccMGCHGYM/index.html">
+<meta property="og:site_name" content="IcePrincess_1968">
+<meta property="og:description" content="Original Description Click to open  Summary 给定一个长度为$n$的数列，保证数列中所有出现过的不同的数不超过$k$个。有$q$次操作，操作有三种： $[1,i,x]$，将第$i$个位置的数改成$x$。 $[2,l,r]$，翻转$l$到$r$的区间。 $[3,l,r,x]$，问能否从$l$到$r$这个区间内的所有数中选出一些，使得其和为$x$。能的话输出Y">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-11T15:56:42.114Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[CodeChef MGCHGYM]Misha and Gym 题解">
+<meta name="twitter:description" content="Original Description Click to open  Summary 给定一个长度为$n$的数列，保证数列中所有出现过的不同的数不超过$k$个。有$q$次操作，操作有三种： $[1,i,x]$，将第$i$个位置的数改成$x$。 $[2,l,r]$，翻转$l$到$r$的区间。 $[3,l,r,x]$，问能否从$l$到$r$这个区间内的所有数中选出一些，使得其和为$x$。能的话输出Y">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/blog/ccMGCHGYM/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>[CodeChef MGCHGYM]Misha and Gym 题解 | IcePrincess_1968</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ef6ada4b88563651822fc6f7276119e6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">IcePrincess_1968</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">I'll always miss you like a darling.</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-friendlinks">
+    <a href="/friendlinks/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-link"></i> <br />友链</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/ccMGCHGYM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="IcePrincess_1968">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IcePrincess_1968">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[CodeChef MGCHGYM]Misha and Gym 题解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-11 00:00:00 / 修改时间：23:56:42" itemprop="dateCreated datePublished" datetime="2019-01-11T00:00:00+08:00">2019-01-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/" itemprop="url" rel="index"><span itemprop="name">常用技术</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/Dynamic-Programming/" itemprop="url" rel="index"><span itemprop="name">Dynamic Programming</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/Dynamic-Programming/背包/" itemprop="url" rel="index"><span itemprop="name">背包</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/数据结构/平衡树/" itemprop="url" rel="index"><span itemprop="name">平衡树</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/二进制拆分/" itemprop="url" rel="index"><span itemprop="name">二进制拆分</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OI/常用技术/压位/" itemprop="url" rel="index"><span itemprop="name">压位</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/ccMGCHGYM/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/blog/ccMGCHGYM/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Original-Description"><a href="#Original-Description" class="headerlink" title="Original Description"></a>Original Description</h2><ul>
+<li><a href="https://www.codechef.com/problems/MGCHGYM" target="_blank" rel="noopener">Click to open</a></li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>给定一个长度为$n$的数列，保证数列中所有出现过的不同的数不超过$k$个。有$q$次操作，操作有三种：<ol>
+<li>$[1,i,x]$，将第$i$个位置的数改成$x$。</li>
+<li>$[2,l,r]$，翻转$l$到$r$的区间。</li>
+<li>$[3,l,r,x]$，问能否从$l$到$r$这个区间内的所有数中选出一些，使得其和为$x$。能的话输出Yes，否则输出No</li>
+</ol>
+</li>
+<li>$n,q\leq 100000$，$k\leq 10$</li>
+<li>记查询操作的数量为$p$，有$p\leq 1000$。所有出现的数字均不超过$10^5$。</li>
+</ul>
+<a id="more"></a>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><details><br><summary>Click to view the solution</summary><br>既然所有的不同的数不会超过$10$个，那么我们就暴力用平衡树维护这个序列。用非旋Treap或者splay维护翻转都是常规操作。每次查询我们就用平衡树求出这个区间每种数有多少个，然后去做多重背包。但是这样复杂度很凉，考虑优化。<br><br>复杂度过高的原因之一是物品的数量可以达到$O(nk)$级别，值域也是$O(n)$级别。对于多重背包，有一种经典有趣的方法将其转化为物品为log级别的01背包。我们考虑某种价值为$w$的物品，有$c$个。我们把$c$拆成$2$的次幂相加的形式，即$c=1+2+4+8+…+2^t+x$，其中$x$是一个零头。然后我们可以将这$c$个价值为$w$的物品改为价值为$w$，$2w$，$4w$，$8w$，…，$2^tw$，$xw$这些。根据二进制拆分的性质，我们可以得到这log个物品可以组出原来所有能组出的价值。<br><br>这样我们把问题转化成了物品数量为$klogn$的01背包。但算算复杂度还是有些大。注意到我们的dp只需要维护某种和能否组出，相当于一个0/1变量。考虑压位。转移的时候用左移操作来取代之前的加。这样可以除以64的常数，大概就能过了。<br></details>
+
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><details><br><summary>Click to view the code</summary><br>#include &lt;bits/stdc++.h&gt;<br>using namespace std;<br><br>#define LL long long<br>#define LB long double<br>#define ull unsigned long long<br>#define x first<br>#define y second<br>#define pb push_back<br>#define pf push_front<br>#define mp make_pair<br>#define Pair pair&lt;int,int&gt;<br>#define pLL pair&lt;LL,LL&gt;<br>#define pii pair&lt;double,double&gt;<br>#define LOWBIT(x) x &amp; (-x)<br>// #define LOCAL true<br><br>const int INF=2e9;<br>const LL LINF=2e16;<br>const int magic=348;<br>const int MOD=1e9+7;<br>const double eps=1e-10;<br>const double pi=acos(-1);<br><br>struct fastio<br>{<br>    static const int S=1e7;<br>    char rbuf[S+48],wbuf[S+48];int rpos,wpos,len;<br>    fastio() {rpos=len=wpos=0;}<br>    inline char Getchar()<br>    {<br>        if (rpos==len) rpos=0,len=fread(rbuf,1,S,stdin);<br>        if (!len) return EOF;<br>        return rbuf[rpos++];<br>    }<br>    template <class t=""> inline void Get(T &amp;x)<br>    {<br>        char ch;bool f;T res;<br>        while (!isdigit(ch=Getchar()) &amp;&amp; ch!=’-‘) {}<br>        if (ch==’-‘) f=false,res=0; else f=true,res=ch-‘0’;<br>        while (isdigit(ch=Getchar())) res=res<em>10+ch-‘0’;<br>        x=(f?res:-res);<br>    }<br>    inline void getstring(char </em>s)<br>    {<br>        char ch;<br>        while ((ch=Getchar())&lt;=32) {}<br>        for (;ch&gt;32;ch=Getchar()) <em>s++=ch;
+        </em>s=’\0’;<br>    }<br>    inline void flush() {fwrite(wbuf,1,wpos,stdout);fflush(stdout);wpos=0;}<br>    inline void Writechar(char ch)<br>    {<br>        if (wpos==S) flush();<br>        wbuf[wpos++]=ch;<br>    }<br>    template <class t=""> inline void Print(T x,char ch)<br>    {<br>        char s[20];int pt=0;<br>        if (x==0) s[++pt]=’0’;<br>        else<br>        {<br>            if (x&lt;0) Writechar(‘-‘),x=-x;<br>            while (x) s[++pt]=’0’+x%10,x/=10;<br>        }<br>        while (pt) Writechar(s[pt–]);<br>        Writechar(ch);<br>    }<br>    inline void printstring(char <em>s)<br>    {<br>        int pt=1;<br>        while (s[pt]!=’\0’) Writechar(s[pt++]);<br>    }<br>}io;<br><br>template<typename t=""> inline void check_max(T &amp;x,T cmp) {x=max(x,cmp);}<br>template<typename t=""> inline void check_min(T &amp;x,T cmp) {x=min(x,cmp);}<br>template<typename t=""> inline T myabs(T x) {return x&gt;=0?x:-x;}<br>template<typename t=""> inline T gcd(T x,T y) {return y==0?x:gcd(y,x%y);}<br>inline int add(int x) {if (x&gt;=MOD) x-=MOD;return x;}<br>inline int add(int x,int MO) {if (x&gt;=MO) x-=MO;return x;}<br>inline int sub(int x) {if (x&lt;0) x+=MOD;return x;}<br>inline int sub(int x,int MO) {if (x&lt;0) x+=MO;return x;}<br>inline void Add(int &amp;x,int y) {x=add(x+y);}<br>inline void Add(int &amp;x,int y,int MO) {x=add(x+y,MO);}<br>inline void Sub(int &amp;x,int y) {x=sub(x-y);}<br>inline void Sub(int &amp;x,int y,int MO) {x=sub(x-y,MO);}<br>template<typename t=""> inline int quick_pow(int x,T y) {int res=1;while (y) {if (y&amp;1) res=1ll</typename></typename></typename></typename></typename></em>res<em>x%MOD;x=1ll</em>x<em>x%MOD;y&gt;&gt;=1;}return res;}<br>template<typename t=""> inline int quick_pow(int x,T y,int MO) {int res=1;while (y) {if (y&amp;1) res=1ll</typename></em>res<em>x%MO;x=1ll</em>x<em>x%MO;y&gt;&gt;=1;}return res;}<br><br>const int MAXN=1e5;<br><br>int n,q;<br>int a[MAXN+48],toind[MAXN+48],toval[48],ind;<br>int cnt[48];<br><br>int w[1048],wtot;<br><br>bitset&lt;MAXN+48&gt; dp[448];<br><br>namespace Treap<br>{<br>    struct node<br>    {<br>        int left,right,val,priority;<br>        int cnt[11],sz,flip;<br>    }tree[MAXN</em>4];int tot,Root;<br>    inline void pushdown(int cur)<br>    {<br>        if (tree[cur].flip)<br>        {<br>            tree[tree[cur].left].flip^=1;<br>            tree[tree[cur].right].flip^=1;<br>            swap(tree[cur].left,tree[cur].right);<br>            tree[cur].flip=0;<br>        }<br>    }<br>    inline void pushup(int cur)<br>    {<br>        memset(tree[cur].cnt,0,sizeof(tree[cur].cnt));<br>        if (tree[cur].left) for (register int i=1;i&lt;=ind;i++) tree[cur].cnt[i]+=tree[tree[cur].left].cnt[i];<br>        if (tree[cur].right) for (register int i=1;i&lt;=ind;i++) tree[cur].cnt[i]+=tree[tree[cur].right].cnt[i];<br>        tree[cur].cnt[tree[cur].val]++;<br>        tree[cur].sz=1;<br>        if (tree[cur].left) tree[cur].sz+=tree[tree[cur].left].sz;<br>        if (tree[cur].right) tree[cur].sz+=tree[tree[cur].right].sz;<br>    }<br>    inline int Create (int left,int right,int val,int priority)<br>    {<br>        ++tot;<br>        tree[tot].left=left;tree[tot].right=right;tree[tot].val=val;tree[tot].priority=priority;<br>        pushup(tot);return tot;<br>    }<br>    inline Pair split(int cur,int k)<br>    {<br>        if (!cur) return mp(0,0);<br>        pushdown(cur);<br>        int leftsz=tree[tree[cur].left].sz+1;<br>        if (k&gt;=leftsz)<br>        {<br>            Pair splitted=split(tree[cur].right,k-leftsz);<br>            tree[cur].right=splitted.x;pushup(cur);<br>            return mp(cur,splitted.y);<br>        }<br>        else<br>        {<br>            Pair splitted=split(tree[cur].left,k);<br>            tree[cur].left=splitted.y;pushup(cur);<br>            return mp(splitted.x,cur);<br>        }<br>    }<br>    inline int merge(int root1,int root2)<br>    {<br>        if (!root1 || !root2) return root1^root2;<br>        pushdown(root1);pushdown(root2);<br>        if (tree[root1].priority&lt;tree[root2].priority)<br>        {<br>            tree[root1].right=merge(tree[root1].right,root2);<br>            pushup(root1);return root1;<br>        }<br>        else<br>        {<br>            tree[root2].left=merge(root1,tree[root2].left);<br>            pushup(root2);return root2;<br>        }<br>    }<br>    inline void modify(int pos,int nv)<br>    {<br>        nv=toind[nv];<br>        Pair splitted=split(Root,pos-1),splitted2=split(splitted.y,1);<br>        Root=merge(splitted.x,merge(Create(0,0,nv,rand()),splitted2.y));<br>    }<br>    inline void reverse(int l,int r)<br>    {<br>        Pair splitted=split(Root,l-1),splitted2=split(splitted.y,r-l+1);<br>        tree[splitted2.x].flip^=1;<br>        Root=merge(splitted.x,merge(splitted2.x,splitted2.y));<br>    }<br>    inline void getcnt(int l,int r)<br>    {<br>        Pair splitted=split(Root,l-1),splitted2=split(splitted.y,r-l+1);<br>        for (register int i=1;i&lt;=ind;i++) cnt[i]=tree[splitted2.x].cnt[i];<br>        Root=merge(splitted.x,merge(splitted2.x,splitted2.y));<br>    }<br>    inline void construct()<br>    {<br>        Root=0;tot=0;<br>        for (register int i=1;i&lt;=n;i++) Root=merge(Root,Create(0,0,toind[a[i]],rand()));<br>    }<br>}<br><br>int main ()<br>{<br>#ifdef LOCAL<br>    double TIME=clock();<br>    freopen (“a.in”,”r”,stdin);<br>    freopen (“a.out”,”w”,stdout);<br>    cerr&lt;&lt;”Running…”&lt;&lt;endl;<br>#endif<br>    scanf(“%d%d”,&amp;n,&amp;q);<br>    for (register int i=1;i&lt;=n;i++)<br>    {<br>        scanf(“%d”,a+i);<br>        if (!toind[a[i]]) toind[a[i]]=++ind,toval[ind]=a[i];<br>    }<br>    Treap::construct();int op,l,r,x;<br>    while (q–)<br>    {<br>        scanf(“%d”,&amp;op);<br>        if (op==1)<br>        {<br>            scanf(“%d%d”,&amp;l,&amp;x);<br>            if (!toind[x]) toind[x]=++ind,toval[ind]=x;<br>            Treap::modify(l,x);<br>        }<br>        if (op==2)<br>        {<br>            scanf(“%d%d”,&amp;l,&amp;r);<br>            Treap::reverse(l,r);<br>        }<br>        if (op==3)<br>        {<br>            scanf(“%d%d%d”,&amp;l,&amp;r,&amp;x);<br>            Treap::getcnt(l,r);wtot=0;<br>            for (register int i=1;i&lt;=ind;i++)<br>            {<br>                int tmp=cnt[i],pw=1;<br>                while (tmp&gt;pw)<br>                {<br>                    if (1ll<em>pw</em>toval[i]&lt;=x) w[++wtot]=1ll<em>pw</em>toval[i];<br>                    tmp-=pw;pw&lt;&lt;=1;<br>                }<br>                if (tmp &amp;&amp; 1ll<em>tmp</em>toval[i]&lt;=x) w[++wtot]=1ll<em>tmp</em>toval[i];<br>            }<br>            dp[0][0]=1;<br>            for (register int i=1;i&lt;=wtot;i++) dp[i]=dp[i-1]|(dp[i-1]&lt;&lt;w[i]);<br>            if (dp[wtot][x]==1) puts(“Yes”); else puts(“No”);<br>        }<br>    }<br>    io.flush();<br>#ifdef LOCAL<br>    cerr&lt;&lt;”Exec Time: “&lt;&lt;(clock()-TIME)/CLOCKS_PER_SEC&lt;&lt;endl;<br>#endif<br>    return 0;<br>}<br></class></class></details>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/dp/" rel="tag"># dp</a>
+          
+            <a href="/tags/CodeChef/" rel="tag"># CodeChef</a>
+          
+            <a href="/tags/平衡树/" rel="tag"># 平衡树</a>
+          
+            <a href="/tags/二进制拆分/" rel="tag"># 二进制拆分</a>
+          
+            <a href="/tags/压位/" rel="tag"># 压位</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/ccJUMP/" rel="next" title="[CodeChef JUMP]Jump Mission 题解">
+                <i class="fa fa-chevron-left"></i> [CodeChef JUMP]Jump Mission 题解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">IcePrincess_1968</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">74</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">89</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/IcePrincess-1968" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:nadal295704@126.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://blog.csdn.net/IcePrincess_1968" target="_blank" title="CSDN博客"><i class="fa fa-fw fa-globe"></i>CSDN博客</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Original-Description"><span class="nav-number">1.</span> <span class="nav-text">Original Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">2.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-number">3.</span> <span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Code"><span class="nav-number">4.</span> <span class="nav-text">Code</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">IcePrincess_1968</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'IcePrincess-1968',
+            repo: 'IcePrincess-1968.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'ec62f4d6436e4de8dfc5761cfb83a368f4890b00',
+            
+                client_id: '7bc0501fdd0b1d75f7aa'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
