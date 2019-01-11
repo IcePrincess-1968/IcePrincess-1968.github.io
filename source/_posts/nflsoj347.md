@@ -2,7 +2,9 @@
 layout: post
 date: 2018-12-28
 title: "[NFLSoj #347][Jiangsu Training Contest #8]计数题 题解"
-categories: [OI, Dynamic Programming, 背包]
+categories:
+- [OI, Dynamic Programming, 背包]
+- [OI, 常用技术, 二进制拆分]
 tags: [NFLSoj, dp, 背包]
 mathjax: true
 ---
