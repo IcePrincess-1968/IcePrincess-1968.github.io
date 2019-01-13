@@ -37,6 +37,7 @@ mathjax: true
 ## Code
 <details>
 <summary>Click to view the code</summary>
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -282,4 +283,5 @@ int main ()
 #endif
     return 0;
 }
+```
 </details>
