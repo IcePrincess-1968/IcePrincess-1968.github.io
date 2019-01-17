@@ -1,9 +1,10 @@
 ---
 layout: post
-date:
-title:
+date: 2019-01-15
+title: "[TopCoder SRM570DIV1C]CurvyonRails 题解"
 categories:
-tags:
+- [OI, 网络流, 费用流]
+tags: [TopCoder, 网络流, 费用流]
 mathjax: true
 ---
 
