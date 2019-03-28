@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="IcePrincess_1968">
 <meta property="og:description" content="Original Description Click to open  Summary 给定一张$n$个点$m$条边的带权无向图，每个点有一个权值$p_i$。两个人分别从两个起点出发轮流操作，每次可以给自己的一个距离变量$dis$加上一个值，然后将图里到自己出发点最短路小于等于$dis$的点占为己有。一个点只能被一个人占据。当所有点都被某个人占据的时候游戏结束，权值和大的人胜。问在最优策略下游戏的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-22T06:15:00.545Z">
+<meta property="og:updated_time" content="2019-03-27T06:02:54.855Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Codeforces #536D]Tavas and Kansas 题解">
 <meta name="twitter:description" content="Original Description Click to open  Summary 给定一张$n$个点$m$条边的带权无向图，每个点有一个权值$p_i$。两个人分别从两个起点出发轮流操作，每次可以给自己的一个距离变量$dis$加上一个值，然后将图里到自己出发点最短路小于等于$dis$的点占为己有。一个点只能被一个人占据。当所有点都被某个人占据的时候游戏结束，权值和大的人胜。问在最优策略下游戏的">
@@ -400,12 +400,24 @@
                 
               
 
-              <time title="创建时间：2019-03-22 00:00:00 / 修改时间：14:15:00" itemprop="dateCreated datePublished" datetime="2019-03-22T00:00:00+08:00">2019-03-22</time>
+              <time title="创建时间：2019-03-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-22T00:00:00+08:00">2019-03-22</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-27 14:02:54" itemprop="dateModified" datetime="2019-03-27T14:02:54+08:00">2019-03-27</time>
               
             
           </span>
@@ -506,7 +518,8 @@
 <li><a href="http://codeforces.com/contest/536/problem/D" target="_blank" rel="noopener">Click to open</a></li>
 </ul>
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
-<li>给定一张$n$个点$m$条边的带权无向图，每个点有一个权值$p_i$。两个人分别从两个起点出发轮流操作，每次可以给自己的一个距离变量$dis$加上一个值，然后将图里到自己出发点最短路小于等于$dis$的点占为己有。一个点只能被一个人占据。当所有点都被某个人占据的时候游戏结束，权值和大的人胜。问在最优策略下游戏的结果。<a id="more"></a>
+<li>给定一张$n$个点$m$条边的带权无向图，每个点有一个权值$p_i$。两个人分别从两个起点出发轮流操作，每次可以给自己的一个距离变量$dis$加上一个值，然后将图里到自己出发点最短路小于等于$dis$的点占为己有。一个点只能被一个人占据。当所有点都被某个人占据的时候游戏结束，权值和大的人胜。问在最优策略下游戏的结果。</li>
+<li>$n\leq 2000$<a id="more"></a>
 </li>
 </ul>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><details><br><summary>Click to view the solution</summary><br>首先肯定从两个出发点各跑一遍最短路，得到每个点到两个出发点的距离。<br>接下来的这步操作非常神奇：<strong>将距离离散化之后，以到第一个出发点的距离为横坐标，到第二个出发点的距离为纵坐标，把图里的$n$个点映射到一个笛卡尔坐标系中</strong>。这样相当于第一个人拿着一条与$y$轴平行的扫描线右移，占据所有在扫描线左边的点，第二个人拿着一条与$x$轴平行的扫描线上移，占据所有在扫描线下方的点。<br><br>接下来可以设计$dp$状态了。<strong>注意博弈论问题要倒着设计状态</strong>，因为两个人目标不一样，正着设计无法转移。令$dp1[i][j]$表示第一个人的扫描线到了$i$，第二个人的扫描线到了$j$，现在轮到第一个人操作时，在剩下的点中第一个人占据的权值比第二个人最多多多少。dp2[i][j]表示第一个人的扫描线到了$i$，第二个人的扫描线到了$j$，现在轮到第二个人操作时，在剩下的点中第一个人占据的权值比第二个人最少多多少。只要预处理某条扫描线右方/上方第一个有点的位置以及该位置权值和，转移方程就非常简单。<br><br>最后考察$dp1[0][0]$的值即可。<br></details>
@@ -552,8 +565,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/cf338d/" rel="next" title="[Codeforces #338D]GCD Table 题解">
-                <i class="fa fa-chevron-left"></i> [Codeforces #338D]GCD Table 题解
+              <a href="/blog/cf839d/" rel="next" title="[Codeforces #839D]Winter is here 题解">
+                <i class="fa fa-chevron-left"></i> [Codeforces #839D]Winter is here 题解
               </a>
             
           </div>
@@ -561,6 +574,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/hdu5528/" rel="prev" title="[HDU5528]Count a*b 题解">
+                [HDU5528]Count a*b 题解 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -638,7 +655,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">84</span>
+                    <span class="site-state-item-count">86</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -825,7 +842,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">85</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">87</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1034,7 +1055,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">96</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">98</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
