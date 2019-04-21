@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="Original Description Click to open  Summary 有$n$个国家，第$i$个国家有$a_i$个城市。 现在要在$n$个国家之间连$n-1$条边，使得国家构成一棵树，在两个国家连边等价于从两个国家中各任选一个城市连边。 问有多少种不同的连边方案，模$10^9+7$。">
+  <meta name="description" content="Original Description Click to open  Summary 有$n$个国家，第$i$个国家有$a_i$个城市。 现在要在$n$个国家之间连$n-1$条边，使得国家构成一棵树，在两个国家连边等价于从两个国家中各任选一个城市连边。 问有多少种不同的连边方案，模$10^9+7$。 $n\leq 2000$">
 <meta name="keywords" content="生成函数,Prufer编码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[TopCoder SRM697DIV1C]ConnectedStates 题解">
 <meta property="og:url" content="http://yoursite.com/blog/tcsrm697div1c/index.html">
 <meta property="og:site_name" content="IcePrincess_1968">
-<meta property="og:description" content="Original Description Click to open  Summary 有$n$个国家，第$i$个国家有$a_i$个城市。 现在要在$n$个国家之间连$n-1$条边，使得国家构成一棵树，在两个国家连边等价于从两个国家中各任选一个城市连边。 问有多少种不同的连边方案，模$10^9+7$。">
+<meta property="og:description" content="Original Description Click to open  Summary 有$n$个国家，第$i$个国家有$a_i$个城市。 现在要在$n$个国家之间连$n-1$条边，使得国家构成一棵树，在两个国家连边等价于从两个国家中各任选一个城市连边。 问有多少种不同的连边方案，模$10^9+7$。 $n\leq 2000$">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-20T04:51:11.040Z">
+<meta property="og:updated_time" content="2019-04-21T13:23:53.154Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[TopCoder SRM697DIV1C]ConnectedStates 题解">
-<meta name="twitter:description" content="Original Description Click to open  Summary 有$n$个国家，第$i$个国家有$a_i$个城市。 现在要在$n$个国家之间连$n-1$条边，使得国家构成一棵树，在两个国家连边等价于从两个国家中各任选一个城市连边。 问有多少种不同的连边方案，模$10^9+7$。">
+<meta name="twitter:description" content="Original Description Click to open  Summary 有$n$个国家，第$i$个国家有$a_i$个城市。 现在要在$n$个国家之间连$n-1$条边，使得国家构成一棵树，在两个国家连边等价于从两个国家中各任选一个城市连边。 问有多少种不同的连边方案，模$10^9+7$。 $n\leq 2000$">
 
 
 
@@ -400,12 +400,24 @@
                 
               
 
-              <time title="创建时间：2019-04-20 00:00:00 / 修改时间：12:51:11" itemprop="dateCreated datePublished" datetime="2019-04-20T00:00:00+08:00">2019-04-20</time>
+              <time title="创建时间：2019-04-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-20T00:00:00+08:00">2019-04-20</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-21 21:23:53" itemprop="dateModified" datetime="2019-04-21T21:23:53+08:00">2019-04-21</time>
               
             
           </span>
@@ -510,12 +522,13 @@
 
       
         <h2 id="Original-Description"><a href="#Original-Description" class="headerlink" title="Original Description"></a>Original Description</h2><ul>
-<li><a href="https://community.topcoder.com/tc?module=ProblemDetail&amp;rd=16776&amp;pm=14333" target="_blank" rel="noopener">Click to open</a></li>
+<li><a href="https://community.topcoder.com/stat?c=problem_statement&amp;pm=14333" target="_blank" rel="noopener">Click to open</a></li>
 </ul>
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
 <li>有$n$个国家，第$i$个国家有$a_i$个城市。</li>
 <li>现在要在$n$个国家之间连$n-1$条边，使得国家构成一棵树，在两个国家连边等价于从两个国家中各任选一个城市连边。</li>
-<li>问有多少种不同的连边方案，模$10^9+7$。<a id="more"></a>
+<li>问有多少种不同的连边方案，模$10^9+7$。</li>
+<li>$n\leq 2000$<a id="more"></a>
 </li>
 </ul>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><details><br><summary>Click to view the solution</summary><br>考虑一棵树的Prufer编码，一个节点的度数相当于它在Prufer编码中出现的次数加一。<br><br>不妨设$n$个节点在Prufer编码中出现的次数分别是$c_1,c_2,\dots ,c_n$，满足这样条件的Prufer序列共有$\frac{(n-2)!}{c_1!c_2!\dots c_n!}$。所以我们最后的答案是<br>$$\sum_{\sum c_i=n-2}\frac{(n-2)!}{\Pi c_i!}\Pi a_i^{c_i+1}\Pi {c_i+1}$$<br>化简，得<br>$$(n-2)!\sum_{\sum c_i=n-2}\prod_{i=1}^n\frac{a_i^{c_i+1}\cdot (c_i+1)}{c_i!}$$<br>前面的$\Sigma$的条件让人容易想到生成函数，如果我们能构造出每个节点的生成函数，然后将它们乘起来即可。<br>令<br>$$<br>\begin{aligned}<br>P_i &amp;= \sum_{j=0}^{\infin}\frac{a_i^{j+1}\cdot (j+1)}{j!}x^j \\<br>&amp;= \sum_{j=0}^{\infin}\frac{a_i^{c_i+1}}{j!}x^j+\sum_{j=0}^{\infin}\frac{a_i^{c_i+1}\cdot j}{j!}x^j \\<br>&amp;= a_i\sum_{j=0}^{\infin}\frac{(a_ix)^j}{j!}+(a_i^2x)\sum_{j=0}^{\infin}\frac{(a_ix)^j}{j!} \\<br>&amp;=(a_i+a_i^2x)\exp(a_ix)<br>\end{aligned}<br>$$<br>将所有的$P_i$乘起来，我们有<br>$$\prod_{i=1}^nP_i=\prod_{i=1}^n(a_i+a_i^2x)\exp(a_ix)=\prod_{i=1}^n(a_i+a_i^2x)\exp(\sum_{i=1}^na_ix)$$<br>只要将上述式子暴力乘起来，最后把$\exp$展开取$x^{n-2}$的系数再乘上$(n-2)!$即可，总时间复杂度$O(n^2)$。<br><br><del>如果用三模数的话可以分治NTT做到$O(nlog^2n)$</del><br></details>
